@@ -17,10 +17,16 @@
   "impactLevel": 5,
   "impactReasoning": "Disputa comercial bilateral con implicaciones significativas para la industria automotriz mexicana y las relaciones México-China.",
 
-  "eventType": "economia",
+  "eventType": "policy-legislation",
 
-  "readingLevel": "intermedio",
+  "readingLevel": "intermediate",
   "factCheckability": 4,
+
+  "clickbaitScore": 4,
+  "clickbaitReasoning": "El título usa lenguaje emotivo (pega, reclama) pero representa razonablemente el contenido del artículo sobre la disputa arancelaria.",
+  "language": "es",
+  "contentDomain": "economy-business-finance",
+  "region": "regional",
 
   "claims": [
     {
@@ -51,6 +57,27 @@
     "Ministerio de Comercio de China",
     "Gobierno de México",
     "Administración General de Aduanas de China"
+  ],
+
+  "organizationEntities": [
+    {
+      "name": "Ministerio de Comercio de China",
+      "sector": "government",
+      "sentiment": "negative",
+      "role": "complainant"
+    },
+    {
+      "name": "Gobierno de México",
+      "sector": "government",
+      "sentiment": "neutral",
+      "role": "policy-maker"
+    },
+    {
+      "name": "Administración General de Aduanas de China",
+      "sector": "government",
+      "sentiment": "neutral",
+      "role": "data-source"
+    }
   ],
 
   "locations": [
@@ -95,6 +122,13 @@
   ],
 
   "relatedLegislation": [],
+
+  "structuredRefs": [
+    {
+      "type": "regulation",
+      "value": "Decreto de aranceles a vehículos y autopartes chinas (enero 2026)"
+    }
+  ],
 
   "relatedKeywords": [
     "aranceles",

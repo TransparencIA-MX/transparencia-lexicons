@@ -1,0 +1,74 @@
+{
+  "$type": "mx.transparencia.news.enrichment",
+  "article": {
+    "uri": "at://did:plc:transparencia/mx.transparencia.news.article/3lqxyz456def",
+    "cid": "bafyreiexample..."
+  },
+  "summary": "Tesla exceeded Q1 2026 revenue expectations with $28.4 billion, a 22% year-over-year increase driven primarily by surging EV demand in China and Southeast Asia. The company also announced plans to expand its Shanghai Gigafactory.",
+  "neutralHeadline": "Tesla reports Q1 2026 revenue of $28.4B, exceeding analyst estimates",
+  "emotionalTone": "optimistic",
+  "impactLevel": 6,
+  "impactReasoning": "Major earnings beat from one of the world's largest companies with implications for the EV industry and global markets.",
+  "eventType": "earnings-financial-results",
+  "contentDomain": "economy-business-finance",
+  "region": "global",
+  "language": "en",
+  "readingLevel": "intermediate",
+  "factCheckability": 5,
+  "clickbaitScore": 8,
+  "clickbaitReasoning": "Headline accurately represents the core news (earnings beat + Asia demand) without sensationalism.",
+  "claims": [
+    {
+      "text": "Tesla reported Q1 2026 revenue of $28.4 billion.",
+      "confidence": "0.95"
+    },
+    {
+      "text": "Analyst estimates were $26.1 billion for Q1 2026.",
+      "confidence": "0.9"
+    }
+  ],
+  "topics": ["Electric vehicles", "Corporate earnings", "Asia markets", "Automotive industry"],
+  "people": [
+    {
+      "name": "Elon Musk",
+      "role": "CEO, Tesla",
+      "sentiment": "positive"
+    }
+  ],
+  "organizations": ["Tesla", "Shanghai Gigafactory"],
+  "organizationEntities": [
+    {
+      "name": "Tesla",
+      "ticker": "TSLA",
+      "sector": "automotive",
+      "sentiment": "positive",
+      "role": "reporting-company"
+    }
+  ],
+  "locations": [
+    {
+      "name": "Shanghai",
+      "state": "Shanghai",
+      "lat": "31.2304",
+      "lng": "121.4737",
+      "relevance": "primary"
+    }
+  ],
+  "economicIndicators": [
+    {
+      "name": "Tesla Q1 Revenue",
+      "value": "$28.4B",
+      "direction": "up"
+    }
+  ],
+  "structuredRefs": [
+    {
+      "type": "stock-ticker",
+      "value": "TSLA",
+      "url": "https://finance.yahoo.com/quote/TSLA"
+    }
+  ],
+  "relatedKeywords": ["tesla", "earnings", "EV", "electric vehicle", "Q1 2026", "Shanghai"],
+  "modelUsed": "gpt-4o",
+  "createdAt": "2026-03-27T15:00:00.000Z"
+}

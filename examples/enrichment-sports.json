@@ -1,0 +1,75 @@
+{
+  "$type": "mx.transparencia.news.enrichment",
+  "article": {
+    "uri": "at://did:plc:transparencia/mx.transparencia.news.article/3lqxyz789ghi",
+    "cid": "bafyreiexample..."
+  },
+  "summary": "El Club América venció 4-1 a las Chivas de Guadalajara en el Clásico Nacional disputado en el Estadio Azteca. Henry Martín anotó dos goles, consolidando al América como serio contendiente al liderato del torneo Clausura 2026.",
+  "neutralHeadline": "América derrota 4-1 a Chivas en el Clásico Nacional de la Liga MX",
+  "emotionalTone": "celebratory",
+  "impactLevel": 4,
+  "impactReasoning": "El Clásico Nacional es el partido más seguido del fútbol mexicano, pero el resultado no tiene impacto fuera del ámbito deportivo.",
+  "eventType": "match-result",
+  "contentDomain": "sport",
+  "region": "national",
+  "language": "es",
+  "readingLevel": "basic",
+  "factCheckability": 5,
+  "clickbaitScore": 7,
+  "clickbaitReasoning": "El título es mayormente preciso pero 'golea' y 'se acerca al liderato' añaden dramatismo editorial moderado.",
+  "claims": [
+    {
+      "text": "América venció 4-1 a Chivas en el Estadio Azteca.",
+      "confidence": "0.99"
+    },
+    {
+      "text": "Henry Martín anotó dos goles en el partido.",
+      "confidence": "0.95"
+    }
+  ],
+  "topics": ["Liga MX", "Clásico Nacional", "Fútbol mexicano"],
+  "people": [
+    {
+      "name": "Henry Martín",
+      "role": "Delantero, Club América",
+      "sentiment": "positive"
+    }
+  ],
+  "organizations": ["Club América", "Chivas de Guadalajara"],
+  "organizationEntities": [
+    {
+      "name": "Club América",
+      "sector": "sports",
+      "sentiment": "positive",
+      "role": "winner"
+    },
+    {
+      "name": "Chivas de Guadalajara",
+      "sector": "sports",
+      "sentiment": "negative",
+      "role": "loser"
+    }
+  ],
+  "locations": [
+    {
+      "name": "Estadio Azteca",
+      "state": "Ciudad de México",
+      "lat": "19.3029",
+      "lng": "-99.1505",
+      "relevance": "primary"
+    }
+  ],
+  "structuredRefs": [
+    {
+      "type": "sports-league",
+      "value": "Liga MX Clausura 2026"
+    },
+    {
+      "type": "sports-event",
+      "value": "Clásico Nacional Jornada 14"
+    }
+  ],
+  "relatedKeywords": ["América", "Chivas", "Clásico Nacional", "Liga MX", "Henry Martín", "Estadio Azteca"],
+  "modelUsed": "gemini-2.5-flash",
+  "createdAt": "2026-03-27T05:00:00.000Z"
+}

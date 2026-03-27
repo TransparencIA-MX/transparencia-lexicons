@@ -1,0 +1,16 @@
+{
+  "$type": "mx.transparencia.news.article",
+  "title": "Tesla Q1 2026 Earnings Beat Estimates as EV Demand Surges in Asia",
+  "url": "https://www.reuters.com/business/autos-transportation/tesla-q1-2026-earnings-example/",
+  "source": {
+    "uri": "at://did:plc:transparencia/mx.transparencia.news.source/reuters",
+    "cid": "bafyreiexample..."
+  },
+  "author": "Jane Smith",
+  "description": "Tesla reported Q1 2026 revenue of $28.4 billion, beating analyst estimates of $26.1 billion, driven by strong demand in China and Southeast Asia.",
+  "imageUrl": "https://www.reuters.com/resizer/v2/example-tesla.jpg",
+  "feedCategory": "business",
+  "publishedAt": "2026-03-27T14:00:00.000Z",
+  "createdAt": "2026-03-27T14:05:00.000Z",
+  "language": "en"
+}

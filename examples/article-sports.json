@@ -1,0 +1,16 @@
+{
+  "$type": "mx.transparencia.news.article",
+  "title": "América golea 4-1 a Chivas en el Clásico Nacional y se acerca al liderato",
+  "url": "https://www.eluniversal.com.mx/deportes/futbol/america-golea-chivas-clasico-nacional/",
+  "source": {
+    "uri": "at://did:plc:transparencia/mx.transparencia.news.source/el_universal",
+    "cid": "bafyreiexample..."
+  },
+  "author": "Carlos Martínez",
+  "description": "El Club América dominó el Clásico Nacional con una goleada 4-1 sobre las Chivas de Guadalajara en el Estadio Azteca, con doblete de Henry Martín.",
+  "imageUrl": "https://www.eluniversal.com.mx/resizer/v2/example-clasico.jpg",
+  "feedCategory": "deportes",
+  "publishedAt": "2026-03-27T04:30:00.000Z",
+  "createdAt": "2026-03-27T04:35:00.000Z",
+  "language": "es"
+}
