@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "mx.transparencia.defs",
+  "id": "tech.transparencia.defs",
   "description": "Shared type definitions for TransparencIA lexicons.",
   "defs": {
     "location": {

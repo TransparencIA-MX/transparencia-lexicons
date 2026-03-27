@@ -1,7 +1,7 @@
 {
-  "$type": "mx.transparencia.news.enrichment",
+  "$type": "tech.transparencia.news.enrichment",
   "article": {
-    "uri": "at://did:plc:transparencia/mx.transparencia.news.article/3lqxyz123abc",
+    "uri": "at://did:plc:transparencia/tech.transparencia.news.article/3lqxyz123abc",
     "cid": "bafyreiexample..."
   },
 

@@ -1,7 +1,7 @@
 {
-  "$type": "mx.transparencia.news.enrichment",
+  "$type": "tech.transparencia.news.enrichment",
   "article": {
-    "uri": "at://did:plc:transparencia/mx.transparencia.news.article/3lqxyz456def",
+    "uri": "at://did:plc:transparencia/tech.transparencia.news.article/3lqxyz456def",
     "cid": "bafyreiexample..."
   },
   "summary": "Tesla exceeded Q1 2026 revenue expectations with $28.4 billion, a 22% year-over-year increase driven primarily by surging EV demand in China and Southeast Asia. The company also announced plans to expand its Shanghai Gigafactory.",

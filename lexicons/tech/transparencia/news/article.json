@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "mx.transparencia.news.article",
+  "id": "tech.transparencia.news.article",
   "description": "A news article from a media outlet, representing the raw published content before any AI enrichment.",
   "defs": {
     "main": {
@@ -25,7 +25,7 @@
           "source": {
             "type": "ref",
             "ref": "com.atproto.repo.strongRef",
-            "description": "Strong reference to the mx.transparencia.news.source record for this outlet."
+            "description": "Strong reference to the tech.transparencia.news.source record for this outlet."
           },
           "author": {
             "type": "string",

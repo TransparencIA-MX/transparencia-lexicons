@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "mx.transparencia.news.source",
+  "id": "tech.transparencia.news.source",
   "description": "A news source (media outlet) that publishes articles tracked by TransparencIA.",
   "defs": {
     "main": {

@@ -6,20 +6,20 @@ These lexicons define the schema for news articles, AI enrichments, and media so
 
 ## Namespace
 
-All lexicons use the `mx.transparencia.*` NSID namespace.
+All lexicons use the `tech.transparencia.*` NSID namespace. The authority domain is `transparencia.tech`.
 
 ```
-mx.transparencia.defs                  — Shared type definitions
-mx.transparencia.news.article          — News article record
-mx.transparencia.news.enrichment       — AI enrichment (sidecar)
-mx.transparencia.news.source           — News source registry
+tech.transparencia.defs                  — Shared type definitions
+tech.transparencia.news.article          — News article record
+tech.transparencia.news.enrichment       — AI enrichment (sidecar)
+tech.transparencia.news.source           — News source registry
 ```
 
 ### Future namespaces (planned)
 
 ```
-mx.transparencia.dof.*                 — Diario Oficial de la Federación
-mx.transparencia.leg.*                 — Legislative data (convocatorias, legisladores)
+tech.transparencia.dof.*                 — Diario Oficial de la Federación
+tech.transparencia.leg.*                 — Legislative data (convocatorias, legisladores)
 ```
 
 ## Architecture
@@ -39,10 +39,10 @@ mx.transparencia.leg.*                 — Legislative data (convocatorias, legi
 │                                                              │
 │  Account: @news.transparencia.mx                             │
 │                                                              │
-│  Collections:                                                │
-│    mx.transparencia.news.source/      (7 records)            │
-│    mx.transparencia.news.article/     (16,000+ records)      │
-│    mx.transparencia.news.enrichment/  (3,800+ records)       │
+  │  Collections:                                                │
+  │    tech.transparencia.news.source/      (7 records)          │
+  │    tech.transparencia.news.article/     (16,000+ records)    │
+  │    tech.transparencia.news.enrichment/  (3,800+ records)     │
 └──────────────────────────┬──────────────────────────────────┘
                            │
                     Jetstream (real-time)
@@ -59,7 +59,7 @@ mx.transparencia.leg.*                 — Legislative data (convocatorias, legi
 
 ## Lexicon Overview
 
-### `mx.transparencia.defs`
+### `tech.transparencia.defs`
 
 Shared types reused across lexicons:
 
@@ -71,7 +71,7 @@ Shared types reused across lexicons:
 | `#economicIndicator` | Economic data point (name, value, direction) |
 | `#timelineEntry` | Chronological event with date |
 
-### `mx.transparencia.news.article`
+### `tech.transparencia.news.article`
 
 A news article as published by a media outlet. Contains only the raw content — no AI analysis.
 
@@ -88,7 +88,7 @@ A news article as published by a media outlet. Contains only the raw content —
 | `publishedAt` | datetime | ✅ | When the source published it |
 | `createdAt` | datetime | ✅ | When this AT Protocol record was created |
 
-### `mx.transparencia.news.enrichment`
+### `tech.transparencia.news.enrichment`
 
 AI-generated structured metadata for an article. Uses the **sidecar pattern** — references the article via `strongRef` so multiple enrichments can coexist (different models, different analysts, updated analyses).
 
@@ -119,7 +119,7 @@ AI-generated structured metadata for an article. Uses the **sidecar pattern** �
 | `modelVersion` | string | | Model version/checkpoint |
 | `createdAt` | datetime | ✅ | When enrichment was generated |
 
-### `mx.transparencia.news.source`
+### `tech.transparencia.news.source`
 
 Registry of news outlets being tracked.
 
@@ -181,7 +181,7 @@ Then query indexed records:
 
 ```graphql
 query {
-  mxTransparenciaNewsEnrichment(
+  techTransparenciaNewsEnrichment(
     first: 20
     where: {
       politicalOrientation: { eq: "izquierda" }

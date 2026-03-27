@@ -1,9 +1,9 @@
 {
-  "$type": "mx.transparencia.news.article",
+  "$type": "tech.transparencia.news.article",
   "title": "América golea 4-1 a Chivas en el Clásico Nacional y se acerca al liderato",
   "url": "https://www.eluniversal.com.mx/deportes/futbol/america-golea-chivas-clasico-nacional/",
   "source": {
-    "uri": "at://did:plc:transparencia/mx.transparencia.news.source/el_universal",
+    "uri": "at://did:plc:transparencia/tech.transparencia.news.source/el_universal",
     "cid": "bafyreiexample..."
   },
   "author": "Carlos Martínez",

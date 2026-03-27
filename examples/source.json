@@ -1,5 +1,5 @@
 {
-  "$type": "mx.transparencia.news.source",
+  "$type": "tech.transparencia.news.source",
   "name": "el_universal",
   "displayName": "El Universal",
   "baseUrl": "https://www.eluniversal.com.mx",

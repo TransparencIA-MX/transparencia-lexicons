@@ -1,9 +1,9 @@
 {
-  "$type": "mx.transparencia.news.article",
+  "$type": "tech.transparencia.news.article",
   "title": "Tesla Q1 2026 Earnings Beat Estimates as EV Demand Surges in Asia",
   "url": "https://www.reuters.com/business/autos-transportation/tesla-q1-2026-earnings-example/",
   "source": {
-    "uri": "at://did:plc:transparencia/mx.transparencia.news.source/reuters",
+    "uri": "at://did:plc:transparencia/tech.transparencia.news.source/reuters",
     "cid": "bafyreiexample..."
   },
   "author": "Jane Smith",

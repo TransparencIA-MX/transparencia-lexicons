@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "mx.transparencia.news.enrichment",
+  "id": "tech.transparencia.news.enrichment",
   "description": "AI-generated structured metadata for a news article. Uses the sidecar pattern — references the article via strongRef so multiple enrichments (from different models or analysts) can coexist.",
   "defs": {
     "main": {
@@ -14,7 +14,7 @@
           "article": {
             "type": "ref",
             "ref": "com.atproto.repo.strongRef",
-            "description": "Strong reference to the mx.transparencia.news.article record being enriched."
+            "description": "Strong reference to the tech.transparencia.news.article record being enriched."
           },
 
           "summary": {
@@ -161,7 +161,7 @@
             "maxLength": 10,
             "items": {
               "type": "ref",
-              "ref": "mx.transparencia.defs#claim"
+              "ref": "tech.transparencia.defs#claim"
             }
           },
           "topics": {
@@ -180,7 +180,7 @@
             "maxLength": 50,
             "items": {
               "type": "ref",
-              "ref": "mx.transparencia.defs#person"
+              "ref": "tech.transparencia.defs#person"
             }
           },
           "organizations": {
@@ -199,7 +199,7 @@
             "maxLength": 30,
             "items": {
               "type": "ref",
-              "ref": "mx.transparencia.defs#organization"
+              "ref": "tech.transparencia.defs#organization"
             }
           },
           "locations": {
@@ -208,7 +208,7 @@
             "maxLength": 20,
             "items": {
               "type": "ref",
-              "ref": "mx.transparencia.defs#location"
+              "ref": "tech.transparencia.defs#location"
             }
           },
 
@@ -218,7 +218,7 @@
             "maxLength": 10,
             "items": {
               "type": "ref",
-              "ref": "mx.transparencia.defs#economicIndicator"
+              "ref": "tech.transparencia.defs#economicIndicator"
             }
           },
           "timeline": {
@@ -227,7 +227,7 @@
             "maxLength": 20,
             "items": {
               "type": "ref",
-              "ref": "mx.transparencia.defs#timelineEntry"
+              "ref": "tech.transparencia.defs#timelineEntry"
             }
           },
           "relatedLegislation": {
@@ -246,7 +246,7 @@
             "maxLength": 20,
             "items": {
               "type": "ref",
-              "ref": "mx.transparencia.defs#structuredRef"
+              "ref": "tech.transparencia.defs#structuredRef"
             }
           },
           "relatedKeywords": {
