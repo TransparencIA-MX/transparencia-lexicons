@@ -36,7 +36,8 @@
       "sentimentScore": "0.75",
       "sentimentReasoning": "Musk is mentioned in the context of a strong earnings beat, reflecting positively on his leadership.",
       "relevance": "secondary",
-      "entityId": "Q317521"
+      "entityId": "Q317521",
+      "entityIdType": "wikidata"
     }
   ],
   "organizationEntities": [
@@ -49,6 +50,7 @@
       "sentimentReasoning": "Strong earnings beat with 22% YoY revenue growth and expansion plans.",
       "relevance": "primary",
       "entityId": "Q478214",
+      "entityIdType": "wikidata",
       "role": "reporting-company"
     }
   ],

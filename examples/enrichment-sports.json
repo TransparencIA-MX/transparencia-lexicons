@@ -36,7 +36,8 @@
       "sentimentScore": "0.9",
       "sentimentReasoning": "Martín is highlighted as the match's standout performer, scoring two goals in a decisive victory.",
       "relevance": "primary",
-      "entityId": "Q15056027"
+      "entityId": "Q15056027",
+      "entityIdType": "wikidata"
     }
   ],
   "organizationEntities": [
@@ -48,6 +49,7 @@
       "sentimentReasoning": "América is portrayed as the dominant team, winning convincingly and strengthening their title contention.",
       "relevance": "primary",
       "entityId": "Q270513",
+      "entityIdType": "wikidata",
       "role": "winner"
     },
     {
@@ -58,6 +60,7 @@
       "sentimentReasoning": "Chivas suffered a heavy defeat in the most high-profile fixture of the Mexican football calendar.",
       "relevance": "primary",
       "entityId": "Q517351",
+      "entityIdType": "wikidata",
       "role": "loser"
     }
   ],

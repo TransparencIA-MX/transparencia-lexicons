@@ -76,6 +76,17 @@
           "type": "string",
           "maxLength": 256,
           "description": "Persistent identifier for cross-article entity linking (e.g., Wikidata QID like Q615, or a canonical slug)."
+        },
+        "entityIdType": {
+          "type": "string",
+          "description": "Identifier system used for entityId, so consumers know how to resolve it.",
+          "knownValues": [
+            "wikidata",
+            "isni",
+            "orcid",
+            "viaf",
+            "other"
+          ]
         }
       }
     },
@@ -191,6 +202,19 @@
           "type": "string",
           "maxLength": 256,
           "description": "Persistent identifier for cross-article entity linking (e.g., Wikidata QID like Q478214, LEI, or a canonical slug)."
+        },
+        "entityIdType": {
+          "type": "string",
+          "description": "Identifier system used for entityId, so consumers know how to resolve it.",
+          "knownValues": [
+            "wikidata",
+            "lei",
+            "openfigi",
+            "opencorporates",
+            "sec-cik",
+            "isni",
+            "other"
+          ]
         },
         "role": {
           "type": "string",

@@ -62,6 +62,7 @@
       "sentimentReasoning": "The article frames the Ministry as the aggrieved party filing a complaint against Mexico's tariffs, casting it in a negative light.",
       "relevance": "primary",
       "entityId": "Q732421",
+      "entityIdType": "wikidata",
       "role": "complainant"
     },
     {
@@ -72,6 +73,7 @@
       "sentimentReasoning": "Mexico is presented as implementing trade policy without explicit positive or negative framing.",
       "relevance": "primary",
       "entityId": "Q1851",
+      "entityIdType": "wikidata",
       "role": "policy-maker"
     },
     {
@@ -81,6 +83,7 @@
       "sentimentScore": "0.5",
       "relevance": "mentioned",
       "entityId": "Q1068447",
+      "entityIdType": "wikidata",
       "role": "data-source"
     }
   ],
