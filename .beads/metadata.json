@@ -1,0 +1,7 @@
+{
+  "database": "dolt",
+  "backend": "dolt",
+  "dolt_mode": "server",
+  "dolt_database": "transparencia_lexicons",
+  "project_id": "aaab8338-fbf7-40dc-a547-ee32906c8aac"
+}
