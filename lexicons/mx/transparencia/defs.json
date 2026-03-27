@@ -1,0 +1,121 @@
+{
+  "lexicon": 1,
+  "id": "mx.transparencia.defs",
+  "description": "Shared type definitions for TransparencIA lexicons.",
+  "defs": {
+    "location": {
+      "type": "object",
+      "description": "A geographic location referenced in content. Coordinates use WGS 84 (EPSG:4326).",
+      "required": ["name", "lat", "lng"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "maxLength": 512,
+          "maxGraphemes": 128,
+          "description": "Place name (city, landmark, state, etc.)."
+        },
+        "state": {
+          "type": "string",
+          "maxLength": 256,
+          "maxGraphemes": 64,
+          "description": "Mexican state or administrative region."
+        },
+        "lat": {
+          "type": "string",
+          "description": "Latitude as a decimal string (AT Protocol does not support floats). Example: '19.4326'."
+        },
+        "lng": {
+          "type": "string",
+          "description": "Longitude as a decimal string. Example: '-99.1332'."
+        },
+        "relevance": {
+          "type": "string",
+          "description": "How central this location is to the content.",
+          "knownValues": ["primary", "mentioned"]
+        }
+      }
+    },
+    "person": {
+      "type": "object",
+      "description": "A person mentioned in content, with optional role and sentiment analysis.",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "maxLength": 512,
+          "maxGraphemes": 128,
+          "description": "Full name of the person."
+        },
+        "role": {
+          "type": "string",
+          "maxLength": 1024,
+          "maxGraphemes": 256,
+          "description": "Role, title, or position (e.g., 'Presidente de México')."
+        },
+        "sentiment": {
+          "type": "string",
+          "description": "How the content portrays this person.",
+          "knownValues": ["positivo", "negativo", "neutral"]
+        }
+      }
+    },
+    "claim": {
+      "type": "object",
+      "description": "A factual claim or assertion extracted from content.",
+      "required": ["text"],
+      "properties": {
+        "text": {
+          "type": "string",
+          "maxLength": 2048,
+          "maxGraphemes": 512,
+          "description": "The claim statement."
+        },
+        "confidence": {
+          "type": "string",
+          "description": "Confidence that this is a verifiable factual claim (decimal string 0-1)."
+        }
+      }
+    },
+    "economicIndicator": {
+      "type": "object",
+      "description": "An economic data point mentioned in content.",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "maxLength": 256,
+          "maxGraphemes": 64,
+          "description": "Indicator name (e.g., 'PIB', 'inflación', 'tipo de cambio')."
+        },
+        "value": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "The reported value as a string (e.g., '2.3%', '$17.45')."
+        },
+        "direction": {
+          "type": "string",
+          "description": "Trend direction if mentioned.",
+          "knownValues": ["up", "down", "stable", "unknown"]
+        }
+      }
+    },
+    "timelineEntry": {
+      "type": "object",
+      "description": "A chronological event mentioned in content.",
+      "required": ["event"],
+      "properties": {
+        "date": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "Date or date range as mentioned in the article (free-form, e.g., 'marzo 2026', '15 de enero')."
+        },
+        "event": {
+          "type": "string",
+          "maxLength": 1024,
+          "maxGraphemes": 256,
+          "description": "Description of what happened."
+        }
+      }
+    }
+  }
+}

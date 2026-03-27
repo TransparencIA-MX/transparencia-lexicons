@@ -1,0 +1,219 @@
+{
+  "lexicon": 1,
+  "id": "mx.transparencia.news.enrichment",
+  "description": "AI-generated structured metadata for a news article. Uses the sidecar pattern — references the article via strongRef so multiple enrichments (from different models or analysts) can coexist.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "AI enrichment of a news article with structured analysis.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["article", "summary", "politicalOrientation", "impactLevel", "eventType", "modelUsed", "createdAt"],
+        "properties": {
+          "article": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef",
+            "description": "Strong reference to the mx.transparencia.news.article record being enriched."
+          },
+
+          "summary": {
+            "type": "string",
+            "maxLength": 10000,
+            "maxGraphemes": 2000,
+            "description": "AI-generated summary of the article (2-3 sentences)."
+          },
+          "neutralHeadline": {
+            "type": "string",
+            "maxLength": 2048,
+            "maxGraphemes": 512,
+            "description": "AI-rewritten neutral headline, stripped of editorial bias."
+          },
+
+          "politicalOrientation": {
+            "type": "string",
+            "description": "Detected political bias of the article's framing (not the topic itself).",
+            "knownValues": [
+              "izquierda",
+              "centro-izquierda",
+              "centro",
+              "centro-derecha",
+              "derecha",
+              "neutral"
+            ]
+          },
+          "orientationConfidence": {
+            "type": "string",
+            "description": "Confidence in the orientation assessment (decimal string 0-1)."
+          },
+          "orientationReasoning": {
+            "type": "string",
+            "maxLength": 5000,
+            "maxGraphemes": 1000,
+            "description": "Explanation of why this orientation was assigned."
+          },
+
+          "emotionalTone": {
+            "type": "string",
+            "description": "Emotional framing of the article, independent of political orientation.",
+            "knownValues": [
+              "alarmista",
+              "critico",
+              "neutral",
+              "optimista",
+              "celebratorio",
+              "melancolico"
+            ]
+          },
+
+          "impactLevel": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10,
+            "description": "Estimated national relevance. 1=minor local note, 5=nationally relevant, 10=national crisis or historic event."
+          },
+          "impactReasoning": {
+            "type": "string",
+            "maxLength": 5000,
+            "maxGraphemes": 1000,
+            "description": "Explanation of the impact score."
+          },
+
+          "eventType": {
+            "type": "string",
+            "description": "Primary category of the news event.",
+            "knownValues": [
+              "legislativo",
+              "seguridad",
+              "economia",
+              "social",
+              "desastre",
+              "politico",
+              "internacional",
+              "deportivo",
+              "cultural",
+              "cientifico",
+              "tecnologia",
+              "entretenimiento"
+            ]
+          },
+
+          "readingLevel": {
+            "type": "string",
+            "description": "Estimated reading difficulty of the original article.",
+            "knownValues": ["basico", "intermedio", "avanzado"]
+          },
+          "factCheckability": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5,
+            "description": "How verifiable are the article's claims? 1=pure opinion, 5=hard data with checkable sources."
+          },
+
+          "claims": {
+            "type": "array",
+            "description": "Key factual claims or assertions extracted from the article.",
+            "maxLength": 10,
+            "items": {
+              "type": "ref",
+              "ref": "mx.transparencia.defs#claim"
+            }
+          },
+          "topics": {
+            "type": "array",
+            "description": "Main topics covered (max 5).",
+            "maxLength": 10,
+            "items": {
+              "type": "string",
+              "maxLength": 512,
+              "maxGraphemes": 128
+            }
+          },
+          "people": {
+            "type": "array",
+            "description": "People mentioned in the article with role and sentiment.",
+            "maxLength": 50,
+            "items": {
+              "type": "ref",
+              "ref": "mx.transparencia.defs#person"
+            }
+          },
+          "organizations": {
+            "type": "array",
+            "description": "Organizations mentioned in the article.",
+            "maxLength": 30,
+            "items": {
+              "type": "string",
+              "maxLength": 512,
+              "maxGraphemes": 128
+            }
+          },
+          "locations": {
+            "type": "array",
+            "description": "Geographic locations referenced in the article.",
+            "maxLength": 20,
+            "items": {
+              "type": "ref",
+              "ref": "mx.transparencia.defs#location"
+            }
+          },
+
+          "economicIndicators": {
+            "type": "array",
+            "description": "Economic data points mentioned in the article.",
+            "maxLength": 10,
+            "items": {
+              "type": "ref",
+              "ref": "mx.transparencia.defs#economicIndicator"
+            }
+          },
+          "timeline": {
+            "type": "array",
+            "description": "Chronological events mentioned in the article.",
+            "maxLength": 20,
+            "items": {
+              "type": "ref",
+              "ref": "mx.transparencia.defs#timelineEntry"
+            }
+          },
+          "relatedLegislation": {
+            "type": "array",
+            "description": "Laws, regulations, or legal references mentioned (e.g., 'Ley General de Salud Art. 73').",
+            "maxLength": 10,
+            "items": {
+              "type": "string",
+              "maxLength": 512,
+              "maxGraphemes": 128
+            }
+          },
+          "relatedKeywords": {
+            "type": "array",
+            "description": "Keywords for event matching and clustering.",
+            "maxLength": 15,
+            "items": {
+              "type": "string",
+              "maxLength": 256,
+              "maxGraphemes": 64
+            }
+          },
+
+          "modelUsed": {
+            "type": "string",
+            "maxLength": 256,
+            "description": "AI model identifier used for this enrichment (e.g., 'gemini-2.5-flash')."
+          },
+          "modelVersion": {
+            "type": "string",
+            "maxLength": 128,
+            "description": "Specific model version or checkpoint if available."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "When this enrichment was generated."
+          }
+        }
+      }
+    }
+  }
+}

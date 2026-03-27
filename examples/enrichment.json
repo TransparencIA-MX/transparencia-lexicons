@@ -1,0 +1,111 @@
+{
+  "$type": "mx.transparencia.news.enrichment",
+  "article": {
+    "uri": "at://did:plc:transparencia/mx.transparencia.news.article/3lqxyz123abc",
+    "cid": "bafyreiexample..."
+  },
+
+  "summary": "El Ministerio de Comercio de China ha reclamado afectaciones por 9,000 millones de dólares debido al aumento de aranceles de México sobre productos automotrices, en un momento de auge para las exportaciones chinas. México es el principal mercado externo para los vehículos completos de China y el tercero para autopartes. China ha iniciado una investigación sobre estas barreras comerciales y de inversión impuestas por México.",
+  "neutralHeadline": "China reclama 9,000 mdd en afectaciones por aranceles automotrices de México",
+
+  "politicalOrientation": "neutral",
+  "orientationConfidence": "0.95",
+  "orientationReasoning": "El artículo presenta datos comerciales de ambas partes sin favorecer una postura política específica.",
+
+  "emotionalTone": "neutral",
+
+  "impactLevel": 5,
+  "impactReasoning": "Disputa comercial bilateral con implicaciones significativas para la industria automotriz mexicana y las relaciones México-China.",
+
+  "eventType": "economia",
+
+  "readingLevel": "intermedio",
+  "factCheckability": 4,
+
+  "claims": [
+    {
+      "text": "El Ministerio de Comercio de China reclama afectaciones por 9,000 millones de dólares debido al alza de aranceles de México a productos automotrices.",
+      "confidence": "0.9"
+    },
+    {
+      "text": "En 2025, las exportaciones automotrices chinas a México sumaron 13,244 millones de dólares, de las cuales el 68% se vieron afectadas por los aranceles.",
+      "confidence": "0.85"
+    },
+    {
+      "text": "México aumentó los aranceles a vehículos ligeros (hasta 50%) y a 74 clasificaciones de autopartes (hasta 50%), efectivo desde el 1 de enero de 2026.",
+      "confidence": "0.9"
+    }
+  ],
+
+  "topics": [
+    "Comercio internacional",
+    "Aranceles",
+    "Industria automotriz",
+    "Relaciones México-China",
+    "Economía"
+  ],
+
+  "people": [],
+
+  "organizations": [
+    "Ministerio de Comercio de China",
+    "Gobierno de México",
+    "Administración General de Aduanas de China"
+  ],
+
+  "locations": [
+    {
+      "name": "Ciudad de México",
+      "state": "Ciudad de México",
+      "lat": "19.4326",
+      "lng": "-99.1332",
+      "relevance": "primary"
+    },
+    {
+      "name": "Pekín",
+      "state": "Beijing",
+      "lat": "39.9042",
+      "lng": "116.4074",
+      "relevance": "mentioned"
+    }
+  ],
+
+  "economicIndicators": [
+    {
+      "name": "Exportaciones automotrices China-México",
+      "value": "$13,244 mdd",
+      "direction": "up"
+    },
+    {
+      "name": "Arancel vehículos ligeros",
+      "value": "50%",
+      "direction": "up"
+    }
+  ],
+
+  "timeline": [
+    {
+      "date": "1 de enero de 2026",
+      "event": "Entran en vigor los aranceles de México a vehículos y autopartes chinas"
+    },
+    {
+      "date": "marzo 2026",
+      "event": "China inicia investigación sobre barreras comerciales de México"
+    }
+  ],
+
+  "relatedLegislation": [],
+
+  "relatedKeywords": [
+    "aranceles",
+    "China",
+    "automotriz",
+    "comercio exterior",
+    "importaciones",
+    "vehículos",
+    "autopartes"
+  ],
+
+  "modelUsed": "gemini-2.5-flash",
+  "createdAt": "2026-03-27T13:02:50.084Z"
+}

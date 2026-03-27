@@ -1,0 +1,21 @@
+{
+  "$type": "mx.transparencia.news.source",
+  "name": "el_universal",
+  "displayName": "El Universal",
+  "baseUrl": "https://www.eluniversal.com.mx",
+  "country": "MX",
+  "language": "es",
+  "cms": "arc_xp",
+  "description": "Periódico mexicano fundado en 1916. Uno de los diarios de mayor circulación en México con cobertura nacional en política, economía, deportes y cultura.",
+  "feedUrls": [
+    {
+      "url": "https://www.eluniversal.com.mx/arc/outboundfeeds/rss/?outputType=xml&_website=eluniversal",
+      "category": "general"
+    },
+    {
+      "url": "https://www.eluniversal.com.mx/arc/outboundfeeds/rss/?outputType=xml&_website=eluniversal&section=/nacion",
+      "category": "nacion"
+    }
+  ],
+  "createdAt": "2026-03-14T19:53:47.657Z"
+}

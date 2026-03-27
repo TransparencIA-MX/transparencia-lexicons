@@ -1,0 +1,72 @@
+{
+  "lexicon": 1,
+  "id": "mx.transparencia.news.article",
+  "description": "A news article from a media outlet, representing the raw published content before any AI enrichment.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "A news article scraped from an RSS feed or website.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["title", "url", "source", "publishedAt", "createdAt"],
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 2048,
+            "maxGraphemes": 512,
+            "description": "Original headline of the article as published by the source."
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Canonical URL of the article on the source website."
+          },
+          "source": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef",
+            "description": "Strong reference to the mx.transparencia.news.source record for this outlet."
+          },
+          "author": {
+            "type": "string",
+            "maxLength": 512,
+            "maxGraphemes": 128,
+            "description": "Author byline as published."
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 10000,
+            "maxGraphemes": 2000,
+            "description": "Article summary or lead paragraph, typically from the RSS feed description field."
+          },
+          "imageUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of the article's featured image."
+          },
+          "feedCategory": {
+            "type": "string",
+            "maxLength": 256,
+            "maxGraphemes": 64,
+            "description": "Category from the RSS feed (e.g., 'politica', 'deportes', 'economia')."
+          },
+          "guid": {
+            "type": "string",
+            "maxLength": 1024,
+            "description": "Original GUID from the RSS feed, used for deduplication."
+          },
+          "publishedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "When the article was published by the source."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "When this record was created in the AT Protocol network."
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "$type": "mx.transparencia.news.article",
+  "title": "Alza arancelaria de México pega a autos chinos en pleno auge, reclama Pekín",
+  "url": "https://www.eleconomista.com.mx/empresas/alza-arancelaria-mexico-pega-autos-chinos-pleno-auge-reclama-pekin-20260327-806197.html",
+  "source": {
+    "uri": "at://did:plc:transparencia/mx.transparencia.news.source/el_economista",
+    "cid": "bafyreiexample..."
+  },
+  "description": "El Ministerio de Comercio de China ha reclamado afectaciones por 9,000 millones de dólares debido al aumento de aranceles de México sobre productos automotrices.",
+  "imageUrl": "https://www.eleconomista.com.mx/resizer/v2/example.jpg",
+  "feedCategory": "empresas",
+  "guid": "https://www.eleconomista.com.mx/empresas/alza-arancelaria-mexico-pega-autos-chinos-pleno-auge-reclama-pekin-20260327-806197.html",
+  "publishedAt": "2026-03-27T11:58:17.000Z",
+  "createdAt": "2026-03-27T12:00:00.000Z"
+}
