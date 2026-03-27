@@ -55,7 +55,27 @@
         "sentiment": {
           "type": "string",
           "description": "How the content portrays this person.",
-          "knownValues": ["positive", "negative", "neutral"]
+          "knownValues": ["positive", "negative", "neutral", "mixed"]
+        },
+        "sentimentScore": {
+          "type": "string",
+          "description": "Numeric sentiment score as a decimal string. 0.0 = extremely negative, 0.5 = neutral, 1.0 = extremely positive."
+        },
+        "sentimentReasoning": {
+          "type": "string",
+          "maxLength": 2048,
+          "maxGraphemes": 512,
+          "description": "Explanation of why this sentiment was assigned."
+        },
+        "relevance": {
+          "type": "string",
+          "description": "How central this person is to the article.",
+          "knownValues": ["primary", "secondary", "mentioned"]
+        },
+        "entityId": {
+          "type": "string",
+          "maxLength": 256,
+          "description": "Persistent identifier for cross-article entity linking (e.g., Wikidata QID like Q615, or a canonical slug)."
         }
       }
     },
@@ -151,6 +171,26 @@
           "type": "string",
           "description": "How the content portrays this organization.",
           "knownValues": ["positive", "negative", "neutral", "mixed"]
+        },
+        "sentimentScore": {
+          "type": "string",
+          "description": "Numeric sentiment score as a decimal string. 0.0 = extremely negative, 0.5 = neutral, 1.0 = extremely positive."
+        },
+        "sentimentReasoning": {
+          "type": "string",
+          "maxLength": 2048,
+          "maxGraphemes": 512,
+          "description": "Explanation of why this sentiment was assigned."
+        },
+        "relevance": {
+          "type": "string",
+          "description": "How central this organization is to the article.",
+          "knownValues": ["primary", "secondary", "mentioned"]
+        },
+        "entityId": {
+          "type": "string",
+          "maxLength": 256,
+          "description": "Persistent identifier for cross-article entity linking (e.g., Wikidata QID like Q478214, LEI, or a canonical slug)."
         },
         "role": {
           "type": "string",

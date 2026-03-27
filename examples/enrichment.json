@@ -58,18 +58,29 @@
       "name": "China Ministry of Commerce",
       "sector": "government",
       "sentiment": "negative",
+      "sentimentScore": "0.25",
+      "sentimentReasoning": "The article frames the Ministry as the aggrieved party filing a complaint against Mexico's tariffs, casting it in a negative light.",
+      "relevance": "primary",
+      "entityId": "Q732421",
       "role": "complainant"
     },
     {
       "name": "Government of Mexico",
       "sector": "government",
       "sentiment": "neutral",
+      "sentimentScore": "0.5",
+      "sentimentReasoning": "Mexico is presented as implementing trade policy without explicit positive or negative framing.",
+      "relevance": "primary",
+      "entityId": "Q1851",
       "role": "policy-maker"
     },
     {
       "name": "General Administration of Customs of China",
       "sector": "government",
       "sentiment": "neutral",
+      "sentimentScore": "0.5",
+      "relevance": "mentioned",
+      "entityId": "Q1068447",
       "role": "data-source"
     }
   ],

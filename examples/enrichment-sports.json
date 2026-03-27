@@ -32,7 +32,11 @@
     {
       "name": "Henry Martín",
       "role": "Delantero, Club América",
-      "sentiment": "positive"
+      "sentiment": "positive",
+      "sentimentScore": "0.9",
+      "sentimentReasoning": "Martín is highlighted as the match's standout performer, scoring two goals in a decisive victory.",
+      "relevance": "primary",
+      "entityId": "Q15056027"
     }
   ],
   "organizationEntities": [
@@ -40,12 +44,20 @@
       "name": "Club América",
       "sector": "sports",
       "sentiment": "positive",
+      "sentimentScore": "0.9",
+      "sentimentReasoning": "América is portrayed as the dominant team, winning convincingly and strengthening their title contention.",
+      "relevance": "primary",
+      "entityId": "Q270513",
       "role": "winner"
     },
     {
       "name": "Chivas de Guadalajara",
       "sector": "sports",
       "sentiment": "negative",
+      "sentimentScore": "0.2",
+      "sentimentReasoning": "Chivas suffered a heavy defeat in the most high-profile fixture of the Mexican football calendar.",
+      "relevance": "primary",
+      "entityId": "Q517351",
       "role": "loser"
     }
   ],

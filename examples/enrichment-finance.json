@@ -32,7 +32,11 @@
     {
       "name": "Elon Musk",
       "role": "CEO, Tesla",
-      "sentiment": "positive"
+      "sentiment": "positive",
+      "sentimentScore": "0.75",
+      "sentimentReasoning": "Musk is mentioned in the context of a strong earnings beat, reflecting positively on his leadership.",
+      "relevance": "secondary",
+      "entityId": "Q317521"
     }
   ],
   "organizationEntities": [
@@ -41,6 +45,10 @@
       "ticker": "TSLA",
       "sector": "automotive",
       "sentiment": "positive",
+      "sentimentScore": "0.85",
+      "sentimentReasoning": "Strong earnings beat with 22% YoY revenue growth and expansion plans.",
+      "relevance": "primary",
+      "entityId": "Q478214",
       "role": "reporting-company"
     }
   ],
