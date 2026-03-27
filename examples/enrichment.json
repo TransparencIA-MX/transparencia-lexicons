@@ -5,17 +5,17 @@
     "cid": "bafyreiexample..."
   },
 
-  "summary": "El Ministerio de Comercio de China ha reclamado afectaciones por 9,000 millones de dólares debido al aumento de aranceles de México sobre productos automotrices, en un momento de auge para las exportaciones chinas. México es el principal mercado externo para los vehículos completos de China y el tercero para autopartes. China ha iniciado una investigación sobre estas barreras comerciales y de inversión impuestas por México.",
-  "neutralHeadline": "China reclama 9,000 mdd en afectaciones por aranceles automotrices de México",
+  "summary": "China's Ministry of Commerce has claimed $9 billion USD in damages due to Mexico's tariff increases on automotive products, at a time of booming Chinese exports. Mexico is China's top external market for complete vehicles and third for auto parts. China has launched an investigation into these trade and investment barriers imposed by Mexico.",
+  "neutralHeadline": "China Claims $9 Billion USD in Damages from Mexico's Automotive Tariffs",
 
   "politicalOrientation": "neutral",
   "orientationConfidence": "0.95",
-  "orientationReasoning": "El artículo presenta datos comerciales de ambas partes sin favorecer una postura política específica.",
+  "orientationReasoning": "The article presents trade data from both sides without favoring any specific political stance.",
 
   "emotionalTone": "neutral",
 
   "impactLevel": 5,
-  "impactReasoning": "Disputa comercial bilateral con implicaciones significativas para la industria automotriz mexicana y las relaciones México-China.",
+  "impactReasoning": "Bilateral trade dispute with significant implications for the Mexican automotive industry and Mexico-China relations.",
 
   "eventType": "policy-legislation",
 
@@ -23,57 +23,57 @@
   "factCheckability": 4,
 
   "clickbaitScore": 4,
-  "clickbaitReasoning": "El título usa lenguaje emotivo (pega, reclama) pero representa razonablemente el contenido del artículo sobre la disputa arancelaria.",
-  "language": "es",
+  "clickbaitReasoning": "The headline uses emotive language (claims, damages) but reasonably represents the article's content about the tariff dispute.",
+  "language": "en",
   "contentDomain": "economy-business-finance",
   "region": "regional",
 
   "claims": [
     {
-      "text": "El Ministerio de Comercio de China reclama afectaciones por 9,000 millones de dólares debido al alza de aranceles de México a productos automotrices.",
+      "text": "China's Ministry of Commerce claims $9 billion USD in damages due to Mexico's tariff increases on automotive products.",
       "confidence": "0.9"
     },
     {
-      "text": "En 2025, las exportaciones automotrices chinas a México sumaron 13,244 millones de dólares, de las cuales el 68% se vieron afectadas por los aranceles.",
+      "text": "In 2025, Chinese automotive exports to Mexico totaled $13.244 billion USD, of which 68% were affected by the tariffs.",
       "confidence": "0.85"
     },
     {
-      "text": "México aumentó los aranceles a vehículos ligeros (hasta 50%) y a 74 clasificaciones de autopartes (hasta 50%), efectivo desde el 1 de enero de 2026.",
+      "text": "Mexico raised tariffs on light vehicles (up to 50%) and on 74 auto parts classifications (up to 50%), effective January 1, 2026.",
       "confidence": "0.9"
     }
   ],
 
   "topics": [
-    "Comercio internacional",
-    "Aranceles",
-    "Industria automotriz",
-    "Relaciones México-China",
-    "Economía"
+    "International trade",
+    "Tariffs",
+    "Automotive industry",
+    "Mexico-China relations",
+    "Economy"
   ],
 
   "people": [],
 
   "organizations": [
-    "Ministerio de Comercio de China",
-    "Gobierno de México",
-    "Administración General de Aduanas de China"
+    "China Ministry of Commerce",
+    "Government of Mexico",
+    "General Administration of Customs of China"
   ],
 
   "organizationEntities": [
     {
-      "name": "Ministerio de Comercio de China",
+      "name": "China Ministry of Commerce",
       "sector": "government",
       "sentiment": "negative",
       "role": "complainant"
     },
     {
-      "name": "Gobierno de México",
+      "name": "Government of Mexico",
       "sector": "government",
       "sentiment": "neutral",
       "role": "policy-maker"
     },
     {
-      "name": "Administración General de Aduanas de China",
+      "name": "General Administration of Customs of China",
       "sector": "government",
       "sentiment": "neutral",
       "role": "data-source"
@@ -83,7 +83,7 @@
   "locations": [
     {
       "name": "Ciudad de México",
-      "state": "Ciudad de México",
+      "state": "Mexico City",
       "lat": "19.4326",
       "lng": "-99.1332",
       "relevance": "primary"
@@ -99,12 +99,12 @@
 
   "economicIndicators": [
     {
-      "name": "Exportaciones automotrices China-México",
-      "value": "$13,244 mdd",
+      "name": "China-Mexico automotive exports",
+      "value": "$13,244 million USD",
       "direction": "up"
     },
     {
-      "name": "Arancel vehículos ligeros",
+      "name": "Light vehicle tariff",
       "value": "50%",
       "direction": "up"
     }
@@ -112,12 +112,12 @@
 
   "timeline": [
     {
-      "date": "1 de enero de 2026",
-      "event": "Entran en vigor los aranceles de México a vehículos y autopartes chinas"
+      "date": "January 1, 2026",
+      "event": "Mexico's tariffs on Chinese vehicles and auto parts take effect"
     },
     {
-      "date": "marzo 2026",
-      "event": "China inicia investigación sobre barreras comerciales de México"
+      "date": "March 2026",
+      "event": "China launches investigation into Mexico's trade barriers"
     }
   ],
 
@@ -126,18 +126,18 @@
   "structuredRefs": [
     {
       "type": "regulation",
-      "value": "Decreto de aranceles a vehículos y autopartes chinas (enero 2026)"
+      "value": "Decree on tariffs for Chinese vehicles and auto parts (January 2026)"
     }
   ],
 
   "relatedKeywords": [
-    "aranceles",
+    "tariffs",
     "China",
-    "automotriz",
-    "comercio exterior",
-    "importaciones",
-    "vehículos",
-    "autopartes"
+    "automotive",
+    "foreign trade",
+    "imports",
+    "vehicles",
+    "auto parts"
   ],
 
   "modelUsed": "gemini-2.5-flash",
