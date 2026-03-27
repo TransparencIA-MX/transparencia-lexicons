@@ -18,7 +18,7 @@
           "type": "string",
           "maxLength": 256,
           "maxGraphemes": 64,
-          "description": "Mexican state or administrative region."
+          "description": "State, province, or administrative region."
         },
         "lat": {
           "type": "string",
@@ -55,7 +55,7 @@
         "sentiment": {
           "type": "string",
           "description": "How the content portrays this person.",
-          "knownValues": ["positivo", "negativo", "neutral"]
+          "knownValues": ["positive", "negative", "neutral"]
         }
       }
     },
@@ -114,6 +114,80 @@
           "maxLength": 1024,
           "maxGraphemes": 256,
           "description": "Description of what happened."
+        }
+      }
+    },
+    "organization": {
+      "type": "object",
+      "description": "An organization, company, or brand mentioned in content.",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "maxLength": 512,
+          "maxGraphemes": 128,
+          "description": "Organization name (e.g., 'Apple', 'Gobierno de México', 'FIFA')."
+        },
+        "ticker": {
+          "type": "string",
+          "maxLength": 32,
+          "description": "Stock ticker symbol if publicly traded (e.g., 'AAPL', 'BIMBOA.MX')."
+        },
+        "sector": {
+          "type": "string",
+          "maxLength": 256,
+          "maxGraphemes": 64,
+          "description": "Industry sector.",
+          "knownValues": [
+            "technology", "finance", "healthcare", "energy",
+            "government", "media", "retail", "automotive",
+            "real-estate", "education", "sports", "entertainment",
+            "food-beverage", "telecommunications", "manufacturing",
+            "non-profit", "legal", "beauty-fashion", "agriculture",
+            "transportation", "defense", "other"
+          ]
+        },
+        "sentiment": {
+          "type": "string",
+          "description": "How the content portrays this organization.",
+          "knownValues": ["positive", "negative", "neutral", "mixed"]
+        },
+        "role": {
+          "type": "string",
+          "maxLength": 1024,
+          "maxGraphemes": 256,
+          "description": "Role in the story (e.g., 'defendant', 'sponsor', 'regulator')."
+        }
+      }
+    },
+    "structuredRef": {
+      "type": "object",
+      "description": "A typed reference to an external entity (law, stock, product, team, etc.).",
+      "required": ["type", "value"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "What kind of reference this is.",
+          "knownValues": [
+            "legislation", "regulation", "court-case",
+            "stock-ticker", "index", "commodity",
+            "product", "brand",
+            "sports-team", "sports-league", "sports-event",
+            "academic-paper", "patent",
+            "government-program", "treaty",
+            "other"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "maxLength": 1024,
+          "maxGraphemes": 256,
+          "description": "The reference value (e.g., 'Ley General de Salud Art. 73', 'AAPL', 'Liga MX')."
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Optional URL to the referenced entity."
         }
       }
     }

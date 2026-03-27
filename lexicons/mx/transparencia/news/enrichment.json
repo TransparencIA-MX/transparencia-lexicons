@@ -9,7 +9,7 @@
       "key": "tid",
       "record": {
         "type": "object",
-        "required": ["article", "summary", "politicalOrientation", "impactLevel", "eventType", "modelUsed", "createdAt"],
+        "required": ["article", "summary", "impactLevel", "eventType", "contentDomain", "modelUsed", "createdAt"],
         "properties": {
           "article": {
             "type": "ref",
@@ -34,11 +34,11 @@
             "type": "string",
             "description": "Detected political bias of the article's framing (not the topic itself).",
             "knownValues": [
-              "izquierda",
-              "centro-izquierda",
-              "centro",
-              "centro-derecha",
-              "derecha",
+              "left",
+              "center-left",
+              "center",
+              "center-right",
+              "right",
               "neutral"
             ]
           },
@@ -57,12 +57,18 @@
             "type": "string",
             "description": "Emotional framing of the article, independent of political orientation.",
             "knownValues": [
-              "alarmista",
-              "critico",
+              "alarmist",
+              "critical",
               "neutral",
-              "optimista",
-              "celebratorio",
-              "melancolico"
+              "optimistic",
+              "celebratory",
+              "melancholic",
+              "informative",
+              "satirical",
+              "inspirational",
+              "sensationalist",
+              "technical",
+              "investigative"
             ]
           },
 
@@ -70,7 +76,7 @@
             "type": "integer",
             "minimum": 1,
             "maximum": 10,
-            "description": "Estimated national relevance. 1=minor local note, 5=nationally relevant, 10=national crisis or historic event."
+            "description": "Estimated relevance and significance. 1=minor local note, 5=nationally or industry-wide relevant, 10=global crisis or historic event."
           },
           "impactReasoning": {
             "type": "string",
@@ -83,31 +89,70 @@
             "type": "string",
             "description": "Primary category of the news event.",
             "knownValues": [
-              "legislativo",
-              "seguridad",
-              "economia",
-              "social",
-              "desastre",
-              "politico",
-              "internacional",
-              "deportivo",
-              "cultural",
-              "cientifico",
-              "tecnologia",
-              "entretenimiento"
+              "announcement",
+              "policy-legislation",
+              "election-vote",
+              "appointment-resignation",
+              "scandal-controversy",
+              "investigation-audit",
+              "court-ruling-legal",
+              "protest-demonstration",
+              "armed-conflict",
+              "natural-disaster",
+              "accident",
+              "crime-incident",
+              "market-movement",
+              "earnings-financial-results",
+              "merger-acquisition",
+              "product-launch",
+              "product-recall",
+              "scientific-discovery",
+              "medical-breakthrough",
+              "epidemic-health-crisis",
+              "infrastructure-project",
+              "cultural-event",
+              "awards-ceremony",
+              "match-result",
+              "transfer-signing",
+              "tournament-competition",
+              "record-achievement",
+              "death-obituary",
+              "interview-profile",
+              "opinion-editorial",
+              "data-report-study",
+              "forecast-prediction",
+              "regulatory-action",
+              "environmental-incident",
+              "diplomatic-relations",
+              "humanitarian-crisis",
+              "trend-analysis",
+              "review-critique",
+              "other"
             ]
           },
 
           "readingLevel": {
             "type": "string",
             "description": "Estimated reading difficulty of the original article.",
-            "knownValues": ["basico", "intermedio", "avanzado"]
+            "knownValues": ["basic", "intermediate", "advanced"]
           },
           "factCheckability": {
             "type": "integer",
             "minimum": 1,
             "maximum": 5,
             "description": "How verifiable are the article's claims? 1=pure opinion, 5=hard data with checkable sources."
+          },
+          "clickbaitScore": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10,
+            "description": "How accurately the headline represents the actual content. 0=pure clickbait (misleading/sensationalist title), 10=headline perfectly represents the article."
+          },
+          "clickbaitReasoning": {
+            "type": "string",
+            "maxLength": 5000,
+            "maxGraphemes": 1000,
+            "description": "Explanation of the clickbait score."
           },
 
           "claims": {
@@ -121,7 +166,7 @@
           },
           "topics": {
             "type": "array",
-            "description": "Main topics covered (max 5).",
+            "description": "Main topics covered (max 10).",
             "maxLength": 10,
             "items": {
               "type": "string",
@@ -140,12 +185,21 @@
           },
           "organizations": {
             "type": "array",
-            "description": "Organizations mentioned in the article.",
+            "description": "Deprecated: use organizationEntities instead. Plain-text organization names mentioned in the article.",
             "maxLength": 30,
             "items": {
               "type": "string",
               "maxLength": 512,
               "maxGraphemes": 128
+            }
+          },
+          "organizationEntities": {
+            "type": "array",
+            "description": "Organizations mentioned in the article with structured metadata.",
+            "maxLength": 30,
+            "items": {
+              "type": "ref",
+              "ref": "mx.transparencia.defs#organization"
             }
           },
           "locations": {
@@ -178,12 +232,21 @@
           },
           "relatedLegislation": {
             "type": "array",
-            "description": "Laws, regulations, or legal references mentioned (e.g., 'Ley General de Salud Art. 73').",
+            "description": "Deprecated: use structuredRefs instead. Laws, regulations, or legal references mentioned.",
             "maxLength": 10,
             "items": {
               "type": "string",
               "maxLength": 512,
               "maxGraphemes": 128
+            }
+          },
+          "structuredRefs": {
+            "type": "array",
+            "description": "Typed references to external entities (laws, stocks, products, teams, etc.).",
+            "maxLength": 20,
+            "items": {
+              "type": "ref",
+              "ref": "mx.transparencia.defs#structuredRef"
             }
           },
           "relatedKeywords": {
@@ -195,6 +258,39 @@
               "maxLength": 256,
               "maxGraphemes": 64
             }
+          },
+          "language": {
+            "type": "string",
+            "format": "language",
+            "description": "Language of this enrichment's free-text fields (BCP-47, e.g., 'es', 'en')."
+          },
+          "contentDomain": {
+            "type": "string",
+            "description": "Primary domain/vertical of the article content, aligned with IPTC Media Topics top-level categories.",
+            "knownValues": [
+              "arts-culture-entertainment",
+              "crime-law-justice",
+              "disaster-accident",
+              "economy-business-finance",
+              "education",
+              "environment",
+              "health",
+              "human-interest",
+              "labour",
+              "lifestyle-leisure",
+              "politics",
+              "religion",
+              "science-technology",
+              "society",
+              "sport",
+              "conflict-war-peace",
+              "weather"
+            ]
+          },
+          "region": {
+            "type": "string",
+            "description": "Geographic scope of the article's relevance.",
+            "knownValues": ["local", "state", "national", "regional", "global"]
           },
 
           "modelUsed": {

@@ -64,6 +64,11 @@
             "type": "string",
             "format": "datetime",
             "description": "When this record was created in the AT Protocol network."
+          },
+          "language": {
+            "type": "string",
+            "format": "language",
+            "description": "Language of the article content (BCP-47, e.g., 'es', 'en', 'pt-BR')."
           }
         }
       }
