@@ -53,12 +53,6 @@
 
   "people": [],
 
-  "organizations": [
-    "China Ministry of Commerce",
-    "Government of Mexico",
-    "General Administration of Customs of China"
-  ],
-
   "organizationEntities": [
     {
       "name": "China Ministry of Commerce",
@@ -120,8 +114,6 @@
       "event": "China launches investigation into Mexico's trade barriers"
     }
   ],
-
-  "relatedLegislation": [],
 
   "structuredRefs": [
     {

@@ -35,7 +35,6 @@
       "sentiment": "positive"
     }
   ],
-  "organizations": ["Club América", "Chivas de Guadalajara"],
   "organizationEntities": [
     {
       "name": "Club América",

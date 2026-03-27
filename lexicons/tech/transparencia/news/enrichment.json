@@ -183,16 +183,6 @@
               "ref": "tech.transparencia.defs#person"
             }
           },
-          "organizations": {
-            "type": "array",
-            "description": "Deprecated: use organizationEntities instead. Plain-text organization names mentioned in the article.",
-            "maxLength": 30,
-            "items": {
-              "type": "string",
-              "maxLength": 512,
-              "maxGraphemes": 128
-            }
-          },
           "organizationEntities": {
             "type": "array",
             "description": "Organizations mentioned in the article with structured metadata.",
@@ -228,16 +218,6 @@
             "items": {
               "type": "ref",
               "ref": "tech.transparencia.defs#timelineEntry"
-            }
-          },
-          "relatedLegislation": {
-            "type": "array",
-            "description": "Deprecated: use structuredRefs instead. Laws, regulations, or legal references mentioned.",
-            "maxLength": 10,
-            "items": {
-              "type": "string",
-              "maxLength": 512,
-              "maxGraphemes": 128
             }
           },
           "structuredRefs": {
