@@ -20,6 +20,17 @@
           "maxGraphemes": 64,
           "description": "State, province, or administrative region."
         },
+        "country": {
+          "type": "string",
+          "maxLength": 256,
+          "maxGraphemes": 64,
+          "description": "Full country name (e.g. 'México', 'United States')."
+        },
+        "countryCode": {
+          "type": "string",
+          "maxLength": 2,
+          "description": "ISO 3166-1 alpha-2 country code (e.g. 'MX', 'US')."
+        },
         "lat": {
           "type": "string",
           "description": "Latitude as a decimal string (AT Protocol does not support floats). Example: '19.4326'."
