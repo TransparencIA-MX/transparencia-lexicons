@@ -68,6 +68,8 @@
     {
       "name": "Estadio Azteca",
       "state": "Ciudad de México",
+      "country": "México",
+      "countryCode": "MX",
       "lat": "19.3029",
       "lng": "-99.1505",
       "relevance": "primary"

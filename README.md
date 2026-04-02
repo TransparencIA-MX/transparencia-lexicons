@@ -69,7 +69,7 @@ Shared types reused across lexicons:
 
 | Type | Description |
 |------|-------------|
-| `#location` | Geographic location with coordinates (lat/lng as strings) |
+| `#location` | Geographic location with country, coordinates (lat/lng as strings) |
 | `#person` | Named person with role and sentiment analysis |
 | `#claim` | Factual claim extracted from content |
 | `#economicIndicator` | Economic data point (name, value, direction) |
@@ -122,7 +122,7 @@ AI-generated structured metadata for an article. Uses the **sidecar pattern** â€
 | `topics` | string[] | | Main topics (max 10) |
 | `people` | person[] | | People mentioned with sentiment |
 | `organizationEntities` | organization[] | | Organizations with structured metadata (ticker, sector, sentiment) |
-| `locations` | location[] | | Geographic references |
+| `locations` | location[] | | Geographic references with country and coordinates |
 | `economicIndicators` | economicIndicator[] | | Economic data points |
 | `timeline` | timelineEntry[] | | Chronological events |
 | `structuredRefs` | structuredRef[] | | Typed references (laws, stocks, products, teams, etc.) |

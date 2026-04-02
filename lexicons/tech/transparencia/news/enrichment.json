@@ -283,6 +283,19 @@
             "maxLength": 128,
             "description": "Specific model version or checkpoint if available."
           },
+          "inputTokens": {
+            "type": "integer",
+            "description": "Number of input tokens sent to the AI model for this enrichment."
+          },
+          "outputTokens": {
+            "type": "integer",
+            "description": "Number of output tokens received from the AI model for this enrichment."
+          },
+          "costUsd": {
+            "type": "string",
+            "maxLength": 32,
+            "description": "Estimated cost of this enrichment in USD as a decimal string (e.g., '0.001234'). Allows consumers to audit AI spend transparently."
+          },
           "createdAt": {
             "type": "string",
             "format": "datetime",
