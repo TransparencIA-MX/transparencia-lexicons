@@ -20,3 +20,6 @@ dist/
 .dolt/
 *.db
 .beads-credential-key
+
+# Pulled AT Protocol lexicon dependencies (via goat lex pull)
+lexicons/com/

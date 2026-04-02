@@ -33,14 +33,17 @@
         },
         "lat": {
           "type": "string",
+          "maxLength": 32,
           "description": "Latitude as a decimal string (AT Protocol does not support floats). Example: '19.4326'."
         },
         "lng": {
           "type": "string",
+          "maxLength": 32,
           "description": "Longitude as a decimal string. Example: '-99.1332'."
         },
         "relevance": {
           "type": "string",
+          "maxLength": 32,
           "description": "How central this location is to the content.",
           "knownValues": ["primary", "mentioned"]
         }
@@ -65,11 +68,13 @@
         },
         "sentiment": {
           "type": "string",
+          "maxLength": 32,
           "description": "How the content portrays this person.",
           "knownValues": ["positive", "negative", "neutral", "mixed"]
         },
         "sentimentScore": {
           "type": "string",
+          "maxLength": 16,
           "description": "Numeric sentiment score as a decimal string. 0.0 = extremely negative, 0.5 = neutral, 1.0 = extremely positive."
         },
         "sentimentReasoning": {
@@ -80,6 +85,7 @@
         },
         "relevance": {
           "type": "string",
+          "maxLength": 32,
           "description": "How central this person is to the article.",
           "knownValues": ["primary", "secondary", "mentioned"]
         },
@@ -90,6 +96,7 @@
         },
         "entityIdType": {
           "type": "string",
+          "maxLength": 64,
           "description": "Identifier system used for entityId, so consumers know how to resolve it.",
           "knownValues": [
             "wikidata",
@@ -114,6 +121,7 @@
         },
         "confidence": {
           "type": "string",
+          "maxLength": 16,
           "description": "Confidence that this is a verifiable factual claim (decimal string 0-1)."
         }
       }
@@ -136,6 +144,7 @@
         },
         "direction": {
           "type": "string",
+          "maxLength": 32,
           "description": "Trend direction if mentioned.",
           "knownValues": ["up", "down", "stable", "unknown"]
         }
@@ -191,11 +200,13 @@
         },
         "sentiment": {
           "type": "string",
+          "maxLength": 32,
           "description": "How the content portrays this organization.",
           "knownValues": ["positive", "negative", "neutral", "mixed"]
         },
         "sentimentScore": {
           "type": "string",
+          "maxLength": 16,
           "description": "Numeric sentiment score as a decimal string. 0.0 = extremely negative, 0.5 = neutral, 1.0 = extremely positive."
         },
         "sentimentReasoning": {
@@ -206,6 +217,7 @@
         },
         "relevance": {
           "type": "string",
+          "maxLength": 32,
           "description": "How central this organization is to the article.",
           "knownValues": ["primary", "secondary", "mentioned"]
         },
@@ -216,6 +228,7 @@
         },
         "entityIdType": {
           "type": "string",
+          "maxLength": 64,
           "description": "Identifier system used for entityId, so consumers know how to resolve it.",
           "knownValues": [
             "wikidata",
@@ -242,6 +255,7 @@
       "properties": {
         "type": {
           "type": "string",
+          "maxLength": 64,
           "description": "What kind of reference this is.",
           "knownValues": [
             "legislation", "regulation", "court-case",

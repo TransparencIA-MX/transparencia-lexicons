@@ -32,6 +32,7 @@
 
           "politicalOrientation": {
             "type": "string",
+            "maxLength": 32,
             "description": "Detected political bias of the article's framing (not the topic itself).",
             "knownValues": [
               "left",
@@ -44,6 +45,7 @@
           },
           "orientationConfidence": {
             "type": "string",
+            "maxLength": 16,
             "description": "Confidence in the orientation assessment (decimal string 0-1)."
           },
           "orientationReasoning": {
@@ -55,6 +57,7 @@
 
           "emotionalTone": {
             "type": "string",
+            "maxLength": 32,
             "description": "Emotional framing of the article, independent of political orientation.",
             "knownValues": [
               "alarmist",
@@ -87,6 +90,7 @@
 
           "eventType": {
             "type": "string",
+            "maxLength": 64,
             "description": "Primary category of the news event.",
             "knownValues": [
               "announcement",
@@ -133,6 +137,7 @@
 
           "readingLevel": {
             "type": "string",
+            "maxLength": 32,
             "description": "Estimated reading difficulty of the original article.",
             "knownValues": ["basic", "intermediate", "advanced"]
           },
@@ -246,6 +251,7 @@
           },
           "contentDomain": {
             "type": "string",
+            "maxLength": 64,
             "description": "Primary domain/vertical of the article content, aligned with IPTC Media Topics top-level categories.",
             "knownValues": [
               "arts-culture-entertainment",
@@ -269,6 +275,7 @@
           },
           "region": {
             "type": "string",
+            "maxLength": 32,
             "description": "Geographic scope of the article's relevance.",
             "knownValues": ["local", "state", "national", "regional", "global"]
           },
