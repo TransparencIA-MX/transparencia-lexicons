@@ -153,12 +153,17 @@
     "timelineEntry": {
       "type": "object",
       "description": "A chronological event mentioned in content.",
-      "required": ["event"],
+      "required": ["event", "startDate"],
       "properties": {
-        "date": {
+        "startDate": {
           "type": "string",
-          "maxLength": 64,
-          "description": "Date or date range as mentioned in the article (free-form, e.g., 'marzo 2026', '15 de enero')."
+          "format": "datetime",
+          "description": "Start date/time in ISO 8601 format (e.g., '2026-04-04T00:00:00.000Z'). For approximate dates, use the first day of the period."
+        },
+        "endDate": {
+          "type": "string",
+          "format": "datetime",
+          "description": "End date/time in ISO 8601 format. Only for date ranges (e.g., a presidential term). Omit for point-in-time events."
         },
         "event": {
           "type": "string",
