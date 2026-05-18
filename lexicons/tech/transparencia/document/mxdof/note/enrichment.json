@@ -36,14 +36,14 @@
           },
           "summary": {
             "type": "string",
-            "maxLength": 48000,
-            "maxGraphemes": 12000,
+            "maxLength": 10000,
+            "maxGraphemes": 2500,
             "description": "Plain-language explanation in 2–4 sentences of what the nota publishes, who issues it, what it changes or orders, and who it affects. Prioritize substance over formalities."
           },
           "neutralHeadline": {
             "type": "string",
-            "maxLength": 16384,
-            "maxGraphemes": 4096,
+            "maxLength": 4096,
+            "maxGraphemes": 1024,
             "description": "Optional plain-language rewrite of the official title, useful when the DOF title is formulaic or excessively legalistic."
           },
           "tipoActo": {
@@ -125,8 +125,8 @@
           },
           "impactReasoning": {
             "type": "string",
-            "maxLength": 20000,
-            "maxGraphemes": 5000,
+            "maxLength": 5000,
+            "maxGraphemes": 1000,
             "description": "Brief justification for the impactLevel score."
           },
           "legalEffects": {

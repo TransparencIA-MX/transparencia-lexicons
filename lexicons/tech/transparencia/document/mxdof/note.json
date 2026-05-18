@@ -142,11 +142,6 @@
             "maxGraphemes": 256,
             "description": "Internal storage path for the diario PDF when retained in object storage (e.g., 'YYYY/MM/DD/diario_{codDiario}.pdf'). Not a public URL — for analytics provenance only."
           },
-          "rawJson": {
-            "type": "string",
-            "maxLength": 51200,
-            "description": "Optional stringified SIDOF payload for full audit. Skip if the payload exceeds 50KB."
-          },
           "rawImportedAt": {
             "type": "string",
             "format": "datetime",
