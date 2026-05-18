@@ -1,0 +1,28 @@
+{
+  "$type": "tech.transparencia.document.mxdof.note",
+  "item": {
+    "uri": "at://did:plc:transparencia/tech.transparencia.document.item/3kxmqzy7v6h22",
+    "cid": "bafyreiexample..."
+  },
+  "codNota": 5723456,
+  "codDiario": 894521,
+  "edition": "vespertina",
+  "codSeccion": "PRIMERA",
+  "dependencia": "PODER EJECUTIVO",
+  "organismo": "SECRETARIA DE SALUD",
+  "issuingAuthority": "Secretaría de Salud",
+  "authorityLevel": "federal_executive",
+  "tipoNota": null,
+  "documentClass": "normative",
+  "page": 12,
+  "pageUntil": 18,
+  "order": "2.5",
+  "hasHtml": true,
+  "hasPdf": true,
+  "hasDoc": false,
+  "hasImage": false,
+  "contentTextAvailable": true,
+  "pdfStoragePath": "2026/05/18/diario_894521.pdf",
+  "rawImportedAt": "2026-05-18T18:35:42.000Z",
+  "createdAt": "2026-05-18T19:00:00.000Z"
+}

@@ -13,22 +13,24 @@ All lexicons use the `tech.transparencia.*` NSID namespace. The authority domain
 > **Note:** The namespace reflects the authority domain (`transparencia.tech`), not a content restriction. Articles and enrichments from any country or language are valid.
 
 ```
-tech.transparencia.defs                  — Shared type definitions
-tech.transparencia.document.item         — Official/institutional document record
-tech.transparencia.document.source       — Document source/publisher registry
-tech.transparencia.news.article          — News article record
-tech.transparencia.news.enrichment       — AI enrichment (sidecar)
-tech.transparencia.news.source           — News source registry
+tech.transparencia.defs                              — Shared type definitions
+tech.transparencia.document.item                     — Official/institutional document record
+tech.transparencia.document.source                   — Document source/publisher registry
+tech.transparencia.document.mxdof.note               — DOF nota sidecar (Mexico)
+tech.transparencia.document.mxdof.note.enrichment    — AI enrichment for DOF notas
+tech.transparencia.news.article                      — News article record
+tech.transparencia.news.enrichment                   — AI enrichment (sidecar)
+tech.transparencia.news.source                       — News source registry
 ```
 
 ### Future namespaces (planned)
 
 ```
-tech.transparencia.document.part         — Document sections, entries, chapters, or notes
-tech.transparencia.document.chunk        — Citable extracted text chunks
-tech.transparencia.document.enrichment   — AI enrichment sidecar for documents
-tech.transparencia.document.dof.*        — Diario Oficial de la Federación profiles
-tech.transparencia.leg.*                 — Legislative data (convocatorias, legisladores)
+tech.transparencia.document.part                     — Document sections, entries, chapters, or notes
+tech.transparencia.document.chunk                    — Citable extracted text chunks
+tech.transparencia.document.enrichment               — Cross-source AI enrichment sidecar for documents
+tech.transparencia.document.mxdof.diario             — Daily DOF gazette edition record
+tech.transparencia.leg.*                             — Legislative data (convocatorias, legisladores)
 ```
 
 ## Architecture
@@ -132,6 +134,75 @@ Registry of publishers and repositories of official documents (e.g., DOF, UNFCCC
 | `identifier` | string | | Persistent ID (Wikidata QID, ROR, LEI, etc.) |
 | `identifierType` | string | | Identifier system: `wikidata`, `ror`, `lei`, `isni`, `internal`, `other` |
 | `updatedAt` | datetime | | Last material update time |
+
+### `tech.transparencia.document.mxdof.note`
+
+DOF-specific sidecar for a Diario Oficial de la Federación nota. Mirrors the SIDOF data model — each nota gets one of these plus one `document.item` record (referenced via `strongRef`). The universal `document.item` carries the title, dates, retrieval metadata, and issuing bodies; this sidecar carries gazette-specific fields that wouldn't make sense outside the DOF.
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `item` | strongRef | ✅ | Reference to the `document.item` record |
+| `codNota` | integer | ✅ | Primary SIDOF identifier (UNIQUE) |
+| `codDiario` | integer | ✅ | SIDOF identifier of the parent diario |
+| `edition` | string | ✅ | `matutina` / `vespertina` / `extraordinaria` |
+| `createdAt` | datetime | ✅ | When the AT Protocol record was created |
+| `codSeccion` | string | | Section code (`PRIMERA`, `AVISOS JUDICIALES`, `LICITACIONES`, etc.) |
+| `dependencia` | string | | Top-level authority label (verbatim from SIDOF) |
+| `organismo` | string | | More specific issuing body (verbatim from SIDOF) |
+| `issuingAuthority` | string | | Normalized human-readable issuer name |
+| `authorityLevel` | string | | Normalized tier: `federal_executive`, `federal_judicial`, `autonomous_constitutional_body`, etc. |
+| `tipoNota` | string | | Raw tipo_nota from SIDOF (often null) |
+| `documentClass` | string | | Broad family: `normative`, `judicial`, `procurement`, `intergovernmental`, `planning`, `administrative`, `informational`, `other` |
+| `page` / `pageUntil` | integer | | Printed page range within the diario PDF |
+| `order` | string | | Ordering value as decimal string |
+| `hasHtml` / `hasPdf` / `hasDoc` / `hasImage` | boolean | | Asset availability from SIDOF |
+| `contentTextAvailable` | boolean | | Whether the pipeline successfully extracted plain text |
+| `pdfStoragePath` | string | | Internal storage path for the diario PDF |
+| `rawJson` | string | | Optional stringified SIDOF payload (capped at 50KB) |
+| `rawImportedAt` | datetime | | When the SIDOF payload was first ingested |
+| `updatedAt` | datetime | | Last material update time |
+
+### `tech.transparencia.document.mxdof.note.enrichment`
+
+AI-generated structured enrichment for a DOF nota. Designed to capture legal-administrative semantics that don't fit a news-style enrichment: type of act, document class, legal effects, obligations, compliance items, related references. Cross-domain fields (`contentDomain`, `eventType`, `region`) keep it joinable with `news.enrichment`.
+
+One nota → many enrichments (different models, languages, analysts). All reference the same `document.mxdof.note` via `strongRef`.
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `note` | strongRef | ✅ | Reference to the `document.mxdof.note` being enriched |
+| `summary` | string | ✅ | 2–4 sentence plain-language explanation (what is published, who issues it, what it changes, who it affects) |
+| `tipoActo` | string | ✅ | Specific act: `decreto`, `acuerdo`, `sentencia`, `edicto`, `licitacion`, `convenio`, `lineamientos`, `manual`, `programa`, etc. |
+| `documentClass` | string | ✅ | Broad family (same set as the note record) |
+| `sector` | string | ✅ | Affected sector: `salud`, `justicia`, `energia`, `transporte`, `hacienda`, `educacion`, `medio_ambiente`, etc. |
+| `impactLevel` | integer | ✅ | 1–10 relevance score |
+| `topics` | string[] | ✅ | Up to 15 topical tags |
+| `people` | person[] | ✅ | `defs#person` — signatories, officials, litigants |
+| `organizationEntities` | organization[] | ✅ | `defs#organization` — issuing/regulated/coordinating bodies |
+| `locations` | location[] | ✅ | `defs#location` — territorial scope |
+| `relatedReferences` | relatedReference[] | ✅ | Cited / modified / abrogated / referenced laws, decrees, expedientes |
+| `structuredRefs` | structuredRef[] | ✅ | `defs#structuredRef` — typed references for graph navigation |
+| `contentDomain` | string | ✅ | IPTC top-level (17 known values — same as `news.enrichment`) |
+| `eventType` | string | ✅ | Cross-domain event category: `policy-legislation`, `regulatory-action`, `court-ruling-legal`, etc. |
+| `modelUsed` | string | ✅ | LLM or analyst profile identifier |
+| `language` | string | ✅ | BCP-47 language of this enrichment's text fields |
+| `createdAt` | datetime | ✅ | When the enrichment was generated |
+| `neutralHeadline` | string | | Plain-language rewrite of the official title |
+| `impactReasoning` | string | | Why the impactLevel was assigned |
+| `legalEffects` | string[] | | Normalized verbs: `reforma`, `adiciona`, `deroga`, `abroga`, `convoca`, `emplaza`, `notifica`, `establece_plazo`, etc. |
+| `obligations` | string[] | | Free-text obligations / duties / deadlines extracted from the text |
+| `complianceItems` | complianceItem[] | | Structured tasks: `{ kind, text, responsibleEntity, beneficiary, dueDate, dueDateText, amountText }` |
+| `effectiveDate` | datetime | | Normalized vigencia when recoverable |
+| `effectiveDateText` | string | | Original textual expression (e.g., "al día siguiente al de su publicación") |
+| `targetEntities` | string[] | | Who is directly affected: proveedores, sujetos regulados, gobiernos estatales, etc. |
+| `timeline` | timelineEntry[] | | Chronological events; DOF variant requires `startDateText` because many legal dates aren't normalizable |
+| `region` | string | | `local` / `state` / `national` / `regional` / `global` |
+| `geographicScope` | string | | Free-text spatial scope (e.g., "Estado de México", "República Mexicana") |
+| `sourceAuthorityLevel` | string | | Authority tier (mirrored from the note record) |
+| `readingLevel` | string | | `basic` / `intermediate` / `advanced` |
+| `modelVersion` | string | | Model version/checkpoint |
+| `inputTokens` / `outputTokens` | integer | | Token counts for provenance |
+| `costUsd` | string | | Inference cost as decimal string |
 
 ### `tech.transparencia.news.article`
 
@@ -349,6 +420,8 @@ See the [`examples/`](./examples/) directory for sample records:
 - [`enrichment-sports.json`](./examples/enrichment-sports.json) — Sports enrichment with `match-result` event type (Spanish enrichment demonstrating multi-language support)
 - [`document-source-dof.json`](./examples/document-source-dof.json) — DOF registry record (publisher metadata)
 - [`document-dof.json`](./examples/document-dof.json) — DOF decree document referencing the DOF source via `strongRef`, with full `retrieval` block and multiple `issuingBodies`
+- [`document-mxdof-note.json`](./examples/document-mxdof-note.json) — DOF nota sidecar with SIDOF codes, edition, dependencia/organismo, and `strongRef` to the underlying `document.item`
+- [`document-mxdof-note-enrichment.json`](./examples/document-mxdof-note-enrichment.json) — Rich enrichment of a real-looking DOF health-sector decree: tipoActo, legalEffects, obligations, complianceItems with deadlines, related references to the Ley General de Salud, geocoded location, and full LLM provenance
 
 ## Usage with Hyperindex
 

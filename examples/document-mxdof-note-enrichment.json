@@ -1,0 +1,170 @@
+{
+  "$type": "tech.transparencia.document.mxdof.note.enrichment",
+  "note": {
+    "uri": "at://did:plc:transparencia/tech.transparencia.document.mxdof.note/3kxmqzy8a4f12",
+    "cid": "bafyreiexample..."
+  },
+  "summary": "El Ejecutivo Federal expide un decreto que reforma y adiciona diversas disposiciones de la Ley General de Salud en materia de regulación sanitaria, fortaleciendo las facultades de la COFEPRIS y estableciendo nuevos plazos para los trámites de autorización sanitaria. La reforma busca homologar criterios con estándares internacionales y agilizar la respuesta del sector salud frente a emergencias sanitarias. Afecta a fabricantes, importadores y prestadores de servicios regulados por la COFEPRIS.",
+  "neutralHeadline": "Reforma a la Ley General de Salud en materia de regulación sanitaria y atribuciones de la COFEPRIS",
+  "tipoActo": "decreto",
+  "documentClass": "normative",
+  "sector": "salud",
+  "impactLevel": 8,
+  "impactReasoning": "Reforma de orden federal a la Ley General de Salud con impactos directos en el sector sanitario nacional, los regulados por COFEPRIS y los plazos de trámites. No constituye cambio constitucional pero sí transformación sectorial significativa.",
+  "legalEffects": ["reforma", "adiciona", "establece_plazo"],
+  "obligations": [
+    "La COFEPRIS deberá emitir lineamientos secundarios dentro de los 180 días naturales siguientes a la entrada en vigor del decreto.",
+    "Los fabricantes e importadores de insumos para la salud deberán adecuar sus expedientes técnicos al nuevo formato dentro de un plazo de un año.",
+    "Las autoridades sanitarias estatales coordinarán con la Secretaría de Salud la implementación de los criterios homologados."
+  ],
+  "complianceItems": [
+    {
+      "kind": "deadline",
+      "text": "Emisión de lineamientos secundarios por parte de la COFEPRIS.",
+      "responsibleEntity": "COFEPRIS",
+      "dueDateText": "180 días naturales siguientes a la entrada en vigor",
+      "dueDate": "2026-11-15T00:00:00.000Z"
+    },
+    {
+      "kind": "requirement",
+      "text": "Actualización de expedientes técnicos al nuevo formato.",
+      "responsibleEntity": "Fabricantes e importadores de insumos para la salud",
+      "beneficiary": "COFEPRIS",
+      "dueDateText": "un año contado a partir de la entrada en vigor",
+      "dueDate": "2027-05-19T00:00:00.000Z"
+    }
+  ],
+  "effectiveDate": "2026-05-19T00:00:00.000Z",
+  "effectiveDateText": "al día siguiente al de su publicación en el Diario Oficial de la Federación",
+  "topics": [
+    "reforma sanitaria",
+    "COFEPRIS",
+    "ley general de salud",
+    "regulación sanitaria",
+    "insumos para la salud"
+  ],
+  "people": [
+    {
+      "name": "Claudia Sheinbaum Pardo",
+      "role": "Presidenta de los Estados Unidos Mexicanos",
+      "sentiment": "neutral",
+      "relevance": "primary",
+      "entityId": "Q5117200",
+      "entityIdType": "wikidata"
+    },
+    {
+      "name": "David Kershenobich Stalnikowitz",
+      "role": "Secretario de Salud",
+      "sentiment": "neutral",
+      "relevance": "primary"
+    }
+  ],
+  "organizationEntities": [
+    {
+      "name": "Secretaría de Salud",
+      "role": "Dependencia emisora del decreto",
+      "sector": "government",
+      "sentiment": "neutral",
+      "relevance": "primary",
+      "entityId": "Q4014734",
+      "entityIdType": "wikidata"
+    },
+    {
+      "name": "Comisión Federal para la Protección contra Riesgos Sanitarios",
+      "role": "Autoridad regulatoria responsable de la implementación",
+      "sector": "government",
+      "sentiment": "neutral",
+      "relevance": "primary",
+      "entityId": "Q5151996",
+      "entityIdType": "wikidata"
+    },
+    {
+      "name": "Presidencia de la República",
+      "role": "Promulgación del decreto",
+      "sector": "government",
+      "sentiment": "neutral",
+      "relevance": "secondary",
+      "entityId": "Q1140067",
+      "entityIdType": "wikidata"
+    }
+  ],
+  "locations": [
+    {
+      "name": "Estados Unidos Mexicanos",
+      "country": "México",
+      "countryCode": "MX",
+      "lat": "23.6345",
+      "lng": "-102.5528",
+      "relevance": "primary"
+    }
+  ],
+  "targetEntities": [
+    "fabricantes de insumos para la salud",
+    "importadores de insumos para la salud",
+    "prestadores de servicios de salud regulados por COFEPRIS",
+    "autoridades sanitarias estatales"
+  ],
+  "relatedReferences": [
+    {
+      "title": "Ley General de Salud",
+      "relationType": "reforma",
+      "referenceKind": "law",
+      "publicationDateText": "publicada originalmente en el DOF el 7 de febrero de 1984"
+    },
+    {
+      "title": "Reglamento de la Ley General de Salud en Materia de Control Sanitario de Actividades, Establecimientos, Productos y Servicios",
+      "relationType": "complementa",
+      "referenceKind": "regulation"
+    },
+    {
+      "title": "Decreto por el que se crea la COFEPRIS",
+      "relationType": "fundamento",
+      "referenceKind": "decree",
+      "publicationDateText": "13 de abril de 2004"
+    }
+  ],
+  "structuredRefs": [
+    {
+      "type": "legislation",
+      "value": "Ley General de Salud, artículos 17 bis, 194 y 222"
+    },
+    {
+      "type": "regulation",
+      "value": "Reglamento de Insumos para la Salud"
+    },
+    {
+      "type": "government-program",
+      "value": "Programa Sectorial de Salud 2025-2030"
+    }
+  ],
+  "timeline": [
+    {
+      "event": "Publicación del decreto en el DOF (edición vespertina)",
+      "startDate": "2026-05-18T00:00:00.000Z",
+      "startDateText": "18 de mayo de 2026"
+    },
+    {
+      "event": "Entrada en vigor",
+      "startDate": "2026-05-19T00:00:00.000Z",
+      "startDateText": "al día siguiente al de su publicación"
+    },
+    {
+      "event": "Plazo para emisión de lineamientos secundarios por COFEPRIS",
+      "startDate": "2026-11-15T00:00:00.000Z",
+      "startDateText": "180 días naturales siguientes a la entrada en vigor"
+    }
+  ],
+  "contentDomain": "health",
+  "eventType": "policy-legislation",
+  "region": "national",
+  "geographicScope": "República Mexicana",
+  "sourceAuthorityLevel": "federal_executive",
+  "readingLevel": "advanced",
+  "language": "es-MX",
+  "modelUsed": "claude-3-5-sonnet",
+  "modelVersion": "20251022",
+  "inputTokens": 4823,
+  "outputTokens": 2147,
+  "costUsd": "0.04658100",
+  "createdAt": "2026-05-18T19:30:00.000Z"
+}
