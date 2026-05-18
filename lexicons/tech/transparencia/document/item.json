@@ -1,0 +1,383 @@
+{
+  "lexicon": 1,
+  "id": "tech.transparencia.document.item",
+  "description": "A canonical public-interest document record. Represents one official publication, report, filing, act, submission, or other source document before structural parsing or AI enrichment.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Core document metadata for official and institutional documents. Stores identity, provenance, and public context, but not full text, sections, chunks, AI analysis, or ingestion pipeline state.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["title", "documentType", "sourceSystem", "source", "publishedAt", "createdAt"],
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 4096,
+            "maxGraphemes": 1024,
+            "description": "Official or source-provided title of the document."
+          },
+          "subtitle": {
+            "type": "string",
+            "maxLength": 4096,
+            "maxGraphemes": 1024,
+            "description": "Optional subtitle, section heading, or secondary title."
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 10000,
+            "maxGraphemes": 2000,
+            "description": "Short source-provided description or human-readable abstract. AI summaries should be stored in enrichment records."
+          },
+          "documentType": {
+            "type": "string",
+            "maxLength": 128,
+            "description": "Machine-readable document category. Open set; known values cover common official and institutional documents.",
+            "knownValues": [
+              "official-publication",
+              "official-gazette-issue",
+              "official-gazette-entry",
+              "law",
+              "decree",
+              "agreement",
+              "notice",
+              "regulation",
+              "standard",
+              "report",
+              "audit-report",
+              "budget-document",
+              "contract",
+              "procurement-document",
+              "court-ruling",
+              "legislative-bill",
+              "legislative-opinion",
+              "treaty",
+              "submission",
+              "technical-paper",
+              "environmental-impact-document",
+              "education-policy-document",
+              "dataset-documentation",
+              "meeting-minutes",
+              "resolution",
+              "other"
+            ]
+          },
+          "sourceSystem": {
+            "type": "string",
+            "maxLength": 128,
+            "description": "System, publisher, repository, scraper, or institutional collection where this document was discovered.",
+            "knownValues": [
+              "dof",
+              "unfccc",
+              "government-website",
+              "legislative-portal",
+              "judicial-portal",
+              "environmental-registry",
+              "education-registry",
+              "procurement-portal",
+              "manual-upload",
+              "other"
+            ]
+          },
+          "source": {
+            "type": "ref",
+            "ref": "#source",
+            "description": "Provenance and retrieval metadata for the canonical source of this document."
+          },
+          "language": {
+            "type": "string",
+            "format": "language",
+            "description": "Primary language of the document content (BCP-47, e.g., 'es-MX', 'en', 'pt-BR')."
+          },
+          "country": {
+            "type": "string",
+            "maxLength": 8,
+            "description": "Primary country connected to the document, as an ISO 3166-1 alpha-2 code when applicable (e.g., 'MX', 'BR', 'US')."
+          },
+          "jurisdiction": {
+            "type": "string",
+            "maxLength": 256,
+            "maxGraphemes": 64,
+            "description": "Legal or administrative jurisdiction covered by the document (e.g., 'federal', 'state', 'municipal', 'international').",
+            "knownValues": [
+              "local",
+              "municipal",
+              "state",
+              "federal",
+              "national",
+              "regional",
+              "international",
+              "supranational",
+              "unknown"
+            ]
+          },
+          "publicationDate": {
+            "type": "string",
+            "maxLength": 32,
+            "description": "Source-level publication date when only a calendar date is available, preferably ISO 8601 YYYY-MM-DD."
+          },
+          "publishedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "When the document was published by the source. Use midnight UTC when only a date is available."
+          },
+          "issuedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "When the issuing authority signed, issued, adopted, or approved the document, if different from publication time."
+          },
+          "effectiveAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "When the document's legal or administrative effects begin, if applicable and explicitly known."
+          },
+          "issuingBodies": {
+            "type": "array",
+            "description": "Organizations, public bodies, institutions, or authorities responsible for issuing, publishing, filing, or adopting the document.",
+            "maxLength": 20,
+            "items": {
+              "type": "ref",
+              "ref": "#bodyRef"
+            }
+          },
+          "identifiers": {
+            "type": "array",
+            "description": "External identifiers such as DOF IDs, UNFCCC symbols, file numbers, docket numbers, ISBNs, or local archival IDs.",
+            "maxLength": 50,
+            "items": {
+              "type": "ref",
+              "ref": "#identifier"
+            }
+          },
+          "domains": {
+            "type": "array",
+            "description": "Broad public-interest domains covered by the document. Open set; consumers should tolerate unknown values.",
+            "maxLength": 20,
+            "items": {
+              "type": "string",
+              "maxLength": 128,
+              "maxGraphemes": 64,
+              "knownValues": [
+                "government",
+                "politics",
+                "law",
+                "justice",
+                "environment",
+                "climate",
+                "education",
+                "health",
+                "budget",
+                "procurement",
+                "economy",
+                "finance",
+                "labor",
+                "energy",
+                "infrastructure",
+                "security",
+                "science-technology",
+                "society",
+                "human-rights",
+                "other"
+              ]
+            }
+          },
+          "topics": {
+            "type": "array",
+            "description": "Free-form topics, tags, or source categories attached to the document.",
+            "maxLength": 30,
+            "items": {
+              "type": "string",
+              "maxLength": 512,
+              "maxGraphemes": 128
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "When this AT Protocol record was created."
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "When this record was last materially updated."
+          }
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "description": "Canonical source and retrieval metadata for a document.",
+      "required": ["url", "retrievedAt"],
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL where this document was found or retrieved."
+        },
+        "canonicalUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "Canonical, normalized, or preferred public URL for the document."
+        },
+        "htmlUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "HTML landing page or web version of the document, if available."
+        },
+        "pdfUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "PDF or downloadable document URL, if available."
+        },
+        "publisherName": {
+          "type": "string",
+          "maxLength": 512,
+          "maxGraphemes": 128,
+          "description": "Human-readable publisher or repository name."
+        },
+        "sourceId": {
+          "type": "string",
+          "maxLength": 512,
+          "description": "Source-system identifier for deduplication, if provided by the upstream source."
+        },
+        "mimeType": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "MIME type of the retrieved representation (e.g., 'text/html', 'application/pdf')."
+        },
+        "fileName": {
+          "type": "string",
+          "maxLength": 1024,
+          "maxGraphemes": 256,
+          "description": "Original or normalized file name, if applicable."
+        },
+        "sizeBytes": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Size of the retrieved file or canonical representation in bytes."
+        },
+        "sha256": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "SHA-256 checksum of the retrieved file or canonical source payload, if available."
+        },
+        "retrievedAt": {
+          "type": "string",
+          "format": "datetime",
+          "description": "When the source was retrieved by the pipeline."
+        },
+        "accessType": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "Access status of the source at retrieval time.",
+          "knownValues": [
+            "public",
+            "restricted",
+            "paywalled",
+            "removed",
+            "unknown"
+          ]
+        },
+        "license": {
+          "type": "string",
+          "maxLength": 512,
+          "maxGraphemes": 128,
+          "description": "License, terms, or public-domain note if known."
+        }
+      }
+    },
+    "bodyRef": {
+      "type": "object",
+      "description": "Institution, agency, authority, publisher, authoring body, or filing party connected to the document.",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "maxLength": 512,
+          "maxGraphemes": 128,
+          "description": "Human-readable body name."
+        },
+        "role": {
+          "type": "string",
+          "maxLength": 128,
+          "maxGraphemes": 64,
+          "description": "Role this body has in relation to the document.",
+          "knownValues": [
+            "publisher",
+            "issuer",
+            "author",
+            "adopter",
+            "filer",
+            "regulator",
+            "court",
+            "legislature",
+            "repository",
+            "mentioned",
+            "other"
+          ]
+        },
+        "identifier": {
+          "type": "string",
+          "maxLength": 256,
+          "description": "Canonical identifier for this body, if available."
+        },
+        "identifierType": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "Identifier system used for identifier.",
+          "knownValues": [
+            "wikidata",
+            "lei",
+            "ror",
+            "isni",
+            "internal",
+            "other"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Official or canonical URL for this body."
+        }
+      }
+    },
+    "identifier": {
+      "type": "object",
+      "description": "External identifier assigned to a document by a source system, authority, archive, or standard.",
+      "required": ["type", "value"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Identifier type or namespace.",
+          "knownValues": [
+            "dof_id",
+            "dof_publication_id",
+            "unfccc_symbol",
+            "official_file_number",
+            "docket_number",
+            "case_number",
+            "law_number",
+            "isbn",
+            "issn",
+            "doi",
+            "url",
+            "sha256",
+            "other"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "maxLength": 1024,
+          "maxGraphemes": 256,
+          "description": "Identifier value."
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Optional URL where this identifier can be resolved or verified."
+        }
+      }
+    }
+  }
+}

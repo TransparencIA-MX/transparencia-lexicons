@@ -1,10 +1,10 @@
 # TransparencIA Lexicons
 
-[AT Protocol](https://atproto.com/) Lexicon definitions for **TransparencIA** — news analysis on the decentralized web, born in Mexico, designed for the world.
+[AT Protocol](https://atproto.com/) Lexicon definitions for **TransparencIA** — public-interest news and official document analysis on the decentralized web, born in Mexico, designed for the world.
 
-These lexicons define the schema for news articles, AI enrichments, and media sources published to the AT Protocol network. They are designed to be indexed by [Hyperindex](https://github.com/hypercerts-org/hyperindex) (or any AT Protocol AppView) and queried via GraphQL.
+These lexicons define the schema for news articles, official documents, AI enrichments, and sources published to the AT Protocol network. They are designed to be indexed by [Hyperindex](https://github.com/hypercerts-org/hyperindex) (or any AT Protocol AppView) and queried via GraphQL.
 
-The schema is **universal** — it works for any country, any language, and any news domain. The initial data sources are Mexican, but the lexicon is designed to cover global news from day one.
+The schema is **universal** — it works for any country, any language, and any public-interest domain. The initial data sources are Mexican, but the lexicon is designed to cover global news and official documents from day one.
 
 ## Namespace
 
@@ -14,6 +14,7 @@ All lexicons use the `tech.transparencia.*` NSID namespace. The authority domain
 
 ```
 tech.transparencia.defs                  — Shared type definitions
+tech.transparencia.document.item         — Official/institutional document record
 tech.transparencia.news.article          — News article record
 tech.transparencia.news.enrichment       — AI enrichment (sidecar)
 tech.transparencia.news.source           — News source registry
@@ -22,7 +23,10 @@ tech.transparencia.news.source           — News source registry
 ### Future namespaces (planned)
 
 ```
-tech.transparencia.dof.*                 — Diario Oficial de la Federación
+tech.transparencia.document.part         — Document sections, entries, chapters, or notes
+tech.transparencia.document.chunk        — Citable extracted text chunks
+tech.transparencia.document.enrichment   — AI enrichment sidecar for documents
+tech.transparencia.document.dof.*        — Diario Oficial de la Federación profiles
 tech.transparencia.leg.*                 — Legislative data (convocatorias, legisladores)
 ```
 
@@ -76,6 +80,34 @@ Shared types reused across lexicons:
 | `#timelineEntry` | Chronological event with date |
 | `#organization` | Organization/company/brand with ticker, sector, and sentiment |
 | `#structuredRef` | Typed reference to an external entity (law, stock, product, team, etc.) |
+
+### `tech.transparencia.document.item`
+
+A canonical document record for official and institutional documents. This is the base layer for DOF publications, UNFCCC documents, reports, laws, agreements, environmental documents, education policy documents, audits, budgets, court rulings, and other public-interest records.
+
+The record stores identity, provenance, classification, dates, issuing bodies, and external identifiers. It intentionally does **not** store full text, sections, chunks, AI analysis, or ingestion pipeline state; those belong in future sidecar records or internal pipeline tables.
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `title` | string | ✅ | Official or source-provided title |
+| `documentType` | string | ✅ | Open document category such as `official-publication`, `official-gazette-entry`, `decree`, `agreement`, `report`, `submission` |
+| `sourceSystem` | string | ✅ | Upstream system or repository such as `dof`, `unfccc`, `government-website`, `manual-upload` |
+| `source` | source object | ✅ | Canonical URL, retrieval time, MIME type, checksums, and source metadata |
+| `publishedAt` | datetime | ✅ | When the source published the document |
+| `createdAt` | datetime | ✅ | When this AT Protocol record was created |
+| `subtitle` | string | | Secondary title or heading |
+| `description` | string | | Source-provided description or short abstract |
+| `language` | language | | BCP-47 language code (e.g., `es-MX`, `en`, `pt-BR`) |
+| `country` | string | | ISO 3166-1 alpha-2 country code |
+| `jurisdiction` | string | | Legal or administrative scope, such as `federal`, `state`, `international` |
+| `publicationDate` | string | | Source-level date, preferably `YYYY-MM-DD`, when only a date is available |
+| `issuedAt` | datetime | | Signature, approval, adoption, or issuing time |
+| `effectiveAt` | datetime | | Legal or administrative effective time |
+| `issuingBodies` | bodyRef[] | | Agencies, institutions, repositories, courts, or filing parties |
+| `identifiers` | identifier[] | | DOF IDs, UNFCCC symbols, file numbers, case numbers, hashes, etc. |
+| `domains` | string[] | | Broad public-interest domains such as `government`, `environment`, `education`, `climate` |
+| `topics` | string[] | | Free-form source categories or tags |
+| `updatedAt` | datetime | | Last material update time |
 
 ### `tech.transparencia.news.article`
 

@@ -1,0 +1,39 @@
+{
+  "$type": "tech.transparencia.document.item",
+  "title": "Diario Oficial de la Federación - 18 de mayo de 2026",
+  "description": "Publicación oficial del Diario Oficial de la Federación correspondiente al 18 de mayo de 2026.",
+  "documentType": "official-publication",
+  "sourceSystem": "dof",
+  "source": {
+    "url": "https://www.dof.gob.mx/",
+    "canonicalUrl": "https://www.dof.gob.mx/",
+    "htmlUrl": "https://www.dof.gob.mx/",
+    "publisherName": "Diario Oficial de la Federación",
+    "mimeType": "text/html",
+    "retrievedAt": "2026-05-18T12:00:00.000Z",
+    "accessType": "public",
+    "license": "public-sector"
+  },
+  "language": "es-MX",
+  "country": "MX",
+  "jurisdiction": "federal",
+  "publicationDate": "2026-05-18",
+  "publishedAt": "2026-05-18T00:00:00.000Z",
+  "issuingBodies": [
+    {
+      "name": "Diario Oficial de la Federación",
+      "role": "publisher",
+      "url": "https://www.dof.gob.mx/"
+    }
+  ],
+  "identifiers": [
+    {
+      "type": "dof_publication_id",
+      "value": "2026-05-18"
+    }
+  ],
+  "domains": ["government", "law"],
+  "topics": ["official-gazette"],
+  "createdAt": "2026-05-18T12:00:00.000Z",
+  "updatedAt": "2026-05-18T12:00:00.000Z"
+}
