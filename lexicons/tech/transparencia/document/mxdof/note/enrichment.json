@@ -1,0 +1,552 @@
+{
+  "lexicon": 1,
+  "id": "tech.transparencia.document.mxdof.note.enrichment",
+  "description": "AI- or analyst-generated enrichment attached to a Diario Oficial de la Federación (México) nota. Captures legal and administrative semantics — type of act, document class, legal effects, obligations, compliance items, related references — while also exposing cross-domain fields (contentDomain, eventType, region) so DOF and news enrichments can be analyzed together.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Sidecar record carrying the full enrichment of a single DOF nota. One nota can have multiple enrichments (different models, different analysts, different languages); all of them reference the same tech.transparencia.document.mxdof.note record via strongRef.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": [
+          "note",
+          "summary",
+          "tipoActo",
+          "documentClass",
+          "sector",
+          "impactLevel",
+          "topics",
+          "people",
+          "organizationEntities",
+          "locations",
+          "relatedReferences",
+          "structuredRefs",
+          "contentDomain",
+          "eventType",
+          "modelUsed",
+          "language",
+          "createdAt"
+        ],
+        "properties": {
+          "note": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef",
+            "description": "Strong reference to the tech.transparencia.document.mxdof.note record being enriched. Consumers can hop to the underlying tech.transparencia.document.item via note.item."
+          },
+          "summary": {
+            "type": "string",
+            "maxLength": 10000,
+            "maxGraphemes": 2500,
+            "description": "Plain-language explanation in 2–4 sentences of what the nota publishes, who issues it, what it changes or orders, and who it affects. Prioritize substance over formalities."
+          },
+          "neutralHeadline": {
+            "type": "string",
+            "maxLength": 4096,
+            "maxGraphemes": 1024,
+            "description": "Optional plain-language rewrite of the official title, useful when the DOF title is formulaic or excessively legalistic."
+          },
+          "tipoActo": {
+            "type": "string",
+            "maxLength": 128,
+            "maxGraphemes": 64,
+            "description": "Specific legal-administrative act type observed or inferred from the nota. Lowercased except for acronyms or proper names. Open set; consumers should tolerate unknown values.",
+            "knownValues": [
+              "decreto",
+              "acuerdo",
+              "acuerdo-secretarial",
+              "sentencia",
+              "edicto",
+              "aviso-judicial",
+              "aviso",
+              "licitacion",
+              "convocatoria",
+              "convenio",
+              "convenio-modificatorio",
+              "circular",
+              "lineamientos",
+              "manual",
+              "programa",
+              "declaratoria",
+              "resolucion",
+              "calendario",
+              "oficio",
+              "nota-aclaratoria",
+              "extracto-de-acuerdo",
+              "otro"
+            ]
+          },
+          "documentClass": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "Broad publication family used for cross-type analysis while preserving the more specific tipoActo field.",
+            "knownValues": [
+              "normative",
+              "judicial",
+              "procurement",
+              "intergovernmental",
+              "planning",
+              "administrative",
+              "informational",
+              "other"
+            ]
+          },
+          "sector": {
+            "type": "string",
+            "maxLength": 128,
+            "maxGraphemes": 64,
+            "description": "Main affected policy or institutional sector. Spanish lowercased tokens. Open set.",
+            "knownValues": [
+              "salud",
+              "justicia",
+              "seguridad",
+              "energia",
+              "transporte",
+              "hacienda",
+              "educacion",
+              "medio_ambiente",
+              "telecomunicaciones",
+              "agropecuario",
+              "trabajo",
+              "cultura",
+              "comercio",
+              "defensa",
+              "administracion_publica",
+              "vivienda",
+              "relaciones_exteriores",
+              "otro"
+            ]
+          },
+          "impactLevel": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10,
+            "description": "Estimated relevance and severity for public analysis. 1 = routine procedural notice, 3 = limited administrative or regulatory act, 5 = clear sectoral or intergovernmental change, 7 = significant reform / national program / major institutional decision, 10 = constitutional change or extraordinary structural transformation."
+          },
+          "impactReasoning": {
+            "type": "string",
+            "maxLength": 5000,
+            "maxGraphemes": 1000,
+            "description": "Brief justification for the impactLevel score."
+          },
+          "legalEffects": {
+            "type": "array",
+            "description": "Normalized verbs or phrases describing what the act does in legal or administrative terms. Open set; only include effects substantiated by the text.",
+            "maxLength": 30,
+            "items": {
+              "type": "string",
+              "maxLength": 256,
+              "maxGraphemes": 64,
+              "knownValues": [
+                "reforma",
+                "adiciona",
+                "deroga",
+                "abroga",
+                "declara_invalidez",
+                "convoca",
+                "emplaza",
+                "notifica",
+                "da_a_conocer",
+                "autoriza",
+                "establece_plazo",
+                "asigna_recursos",
+                "coordina",
+                "crea_mecanismo",
+                "aprueba_metodologia",
+                "publica_programa",
+                "modifica_cartografia",
+                "otro"
+              ]
+            }
+          },
+          "obligations": {
+            "type": "array",
+            "description": "Concrete obligations, duties, deadlines, restrictions, or compliance actions extracted from the nota as Spanish free-text statements. For more structured tasks, use complianceItems.",
+            "maxLength": 50,
+            "items": {
+              "type": "string",
+              "maxLength": 8000,
+              "maxGraphemes": 2000
+            }
+          },
+          "complianceItems": {
+            "type": "array",
+            "description": "Structured compliance tasks derived from the publication when the nota sets actionable requirements. Empty array when the document does not contain clear actions.",
+            "maxLength": 50,
+            "items": {
+              "type": "ref",
+              "ref": "#complianceItem"
+            }
+          },
+          "effectiveDate": {
+            "type": "string",
+            "format": "datetime",
+            "description": "Normalized effective date/time when the act takes effect, if recoverable with confidence from the text. Distinct from tech.transparencia.document.item.effectiveAt (which is from source metadata)."
+          },
+          "effectiveDateText": {
+            "type": "string",
+            "maxLength": 2048,
+            "maxGraphemes": 512,
+            "description": "Original textual expression of vigencia when a normalized date is unavailable or lossy (e.g., 'al día siguiente al de su publicación en el Diario Oficial de la Federación')."
+          },
+          "topics": {
+            "type": "array",
+            "description": "Primary topical tags. Spanish or English free-form.",
+            "maxLength": 15,
+            "items": {
+              "type": "string",
+              "maxLength": 1024,
+              "maxGraphemes": 256
+            }
+          },
+          "people": {
+            "type": "array",
+            "description": "People materially relevant to the nota: titulares del acto, ministros firmantes, gobernadores, autoridades responsables, litigantes, terceros interesados. Only natural persons.",
+            "maxLength": 50,
+            "items": {
+              "type": "ref",
+              "ref": "tech.transparencia.defs#person"
+            }
+          },
+          "organizationEntities": {
+            "type": "array",
+            "description": "Institutions, tribunals, secretarías, organismos autónomos, empresas públicas, entes convocantes, or other organizations referenced in the publication.",
+            "maxLength": 50,
+            "items": {
+              "type": "ref",
+              "ref": "tech.transparencia.defs#organization"
+            }
+          },
+          "locations": {
+            "type": "array",
+            "description": "Geographic references: states, municipalities, ciudades, puertos, circuitos judiciales, or the territorial scope of the act. Empty array when no specific location is recoverable.",
+            "maxLength": 50,
+            "items": {
+              "type": "ref",
+              "ref": "tech.transparencia.defs#location"
+            }
+          },
+          "targetEntities": {
+            "type": "array",
+            "description": "Who the act directly affects or addresses: proveedores interesados, terceros interesados, secretarías coordinadas, gobiernos estatales, instituciones de salud, concesionarios, sujetos regulados, población beneficiaria, etc. Free-form Spanish strings.",
+            "maxLength": 30,
+            "items": {
+              "type": "string",
+              "maxLength": 2048,
+              "maxGraphemes": 512
+            }
+          },
+          "relatedReferences": {
+            "type": "array",
+            "description": "References to prior or related legal/administrative materials that the nota cites, modifies, abrogates, complements, or depends on (leyes, reglamentos, acuerdos, decretos, expedientes, acciones de inconstitucionalidad, tratados, programas, etc.).",
+            "maxLength": 100,
+            "items": {
+              "type": "ref",
+              "ref": "#relatedReference"
+            }
+          },
+          "structuredRefs": {
+            "type": "array",
+            "description": "Typed references useful for graph navigation across laws, cases, programs, regulations, treaties, procurement IDs, and related objects.",
+            "maxLength": 100,
+            "items": {
+              "type": "ref",
+              "ref": "tech.transparencia.defs#structuredRef"
+            }
+          },
+          "timeline": {
+            "type": "array",
+            "description": "Chronological events or milestones described by the publication.",
+            "maxLength": 30,
+            "items": {
+              "type": "ref",
+              "ref": "#timelineEntry"
+            }
+          },
+          "contentDomain": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "Cross-domain classification aligned with the existing TransparencIA news taxonomy (IPTC Media Topics) for mixed analysis across DOF and news.",
+            "knownValues": [
+              "arts-culture-entertainment",
+              "crime-law-justice",
+              "disaster-accident",
+              "economy-business-finance",
+              "education",
+              "environment",
+              "health",
+              "human-interest",
+              "labour",
+              "lifestyle-leisure",
+              "politics",
+              "religion",
+              "science-technology",
+              "society",
+              "sport",
+              "conflict-war-peace",
+              "weather"
+            ]
+          },
+          "eventType": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "Cross-domain event/action category for shared analytics. Common DOF values: policy-legislation, regulatory-action, court-ruling-legal, announcement, data-report-study, appointment-resignation, investigation-audit, infrastructure-project. Open set.",
+            "knownValues": [
+              "policy-legislation",
+              "regulatory-action",
+              "court-ruling-legal",
+              "announcement",
+              "data-report-study",
+              "appointment-resignation",
+              "investigation-audit",
+              "infrastructure-project",
+              "diplomatic-relations",
+              "environmental-incident",
+              "other"
+            ]
+          },
+          "region": {
+            "type": "string",
+            "maxLength": 32,
+            "description": "Geographic scope of the publication's effects or relevance.",
+            "knownValues": [
+              "local",
+              "state",
+              "national",
+              "regional",
+              "global"
+            ]
+          },
+          "geographicScope": {
+            "type": "string",
+            "maxLength": 1024,
+            "maxGraphemes": 256,
+            "description": "Free-text spatial scope when finer legal phrasing matters (e.g., 'Estado de México', 'República Mexicana', 'puertos nacionales', 'Jalisco')."
+          },
+          "sourceAuthorityLevel": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "Normalized authority tier, mirrored from tech.transparencia.document.mxdof.note.authorityLevel for analytical convenience.",
+            "knownValues": [
+              "federal_executive",
+              "federal_judicial",
+              "federal_legislative",
+              "autonomous_constitutional_body",
+              "state_judicial",
+              "state_executive",
+              "state_legislative",
+              "municipal",
+              "state_owned_enterprise",
+              "decentralized_body",
+              "procurement_section",
+              "judicial_notices_section",
+              "other"
+            ]
+          },
+          "readingLevel": {
+            "type": "string",
+            "maxLength": 32,
+            "description": "Approximate reading level of the document content, useful for UX surfacing of legalistic vs accessible texts.",
+            "knownValues": [
+              "basic",
+              "intermediate",
+              "advanced"
+            ]
+          },
+          "language": {
+            "type": "string",
+            "format": "language",
+            "description": "Language of this enrichment's free-text fields (BCP-47, e.g., 'es-MX', 'es', 'en'). Independent of the document's own language; multiple language enrichments can coexist for the same nota."
+          },
+          "modelUsed": {
+            "type": "string",
+            "maxLength": 256,
+            "description": "AI model or analyst profile identifier that produced the enrichment (e.g., 'claude-3-5-sonnet', 'gemini-2.0-flash', 'manual-analyst-v1')."
+          },
+          "modelVersion": {
+            "type": "string",
+            "maxLength": 256,
+            "description": "Model version or checkpoint."
+          },
+          "inputTokens": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Tokens consumed by the LLM prompt for this enrichment."
+          },
+          "outputTokens": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Tokens generated by the LLM response."
+          },
+          "costUsd": {
+            "type": "string",
+            "maxLength": 32,
+            "description": "Cost of this inference in USD as a decimal string (AT Protocol does not support floats). Example: '0.00123456'."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "When this enrichment was generated."
+          }
+        }
+      }
+    },
+    "complianceItem": {
+      "type": "object",
+      "description": "A structured compliance task derived from a DOF nota: deadline, requirement, restriction, payment, appearance, reporting obligation, or similar actionable item.",
+      "required": ["text"],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "Category of compliance task.",
+          "knownValues": [
+            "deadline",
+            "requirement",
+            "restriction",
+            "payment",
+            "appearance",
+            "reporting",
+            "other"
+          ]
+        },
+        "text": {
+          "type": "string",
+          "maxLength": 8000,
+          "maxGraphemes": 2000,
+          "description": "Plain-language description of the task in Spanish (matching the enrichment language)."
+        },
+        "responsibleEntity": {
+          "type": "string",
+          "maxLength": 2048,
+          "maxGraphemes": 512,
+          "description": "Who must perform or comply (institution, person, role, regulated party)."
+        },
+        "beneficiary": {
+          "type": "string",
+          "maxLength": 2048,
+          "maxGraphemes": 512,
+          "description": "Who benefits or is the counterparty, when applicable."
+        },
+        "dueDate": {
+          "type": "string",
+          "format": "datetime",
+          "description": "Normalized due date when recoverable with confidence."
+        },
+        "dueDateText": {
+          "type": "string",
+          "maxLength": 2048,
+          "maxGraphemes": 512,
+          "description": "Original textual expression of the deadline when a normalized datetime is unavailable or lossy."
+        },
+        "amountText": {
+          "type": "string",
+          "maxLength": 1024,
+          "maxGraphemes": 256,
+          "description": "Monetary or quantitative amount as expressed in the text (e.g., 'multa de hasta 10,000 UMA', '500,000 pesos')."
+        }
+      }
+    },
+    "relatedReference": {
+      "type": "object",
+      "description": "A reference to a prior or related legal/administrative material cited, modified, abrogated, complemented, or depended upon by this nota.",
+      "required": ["title", "relationType"],
+      "properties": {
+        "title": {
+          "type": "string",
+          "maxLength": 8192,
+          "maxGraphemes": 2048,
+          "description": "Title or label of the referenced act, law, case, decree, agreement, regulation, or proceeding."
+        },
+        "relationType": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "How the nota relates to the referenced item. Open set; typical Spanish verbs.",
+          "knownValues": [
+            "cita",
+            "modifica",
+            "reforma",
+            "fundamento",
+            "antecedente",
+            "aclara",
+            "complementa",
+            "abroga",
+            "invalida",
+            "implementa",
+            "deriva_de",
+            "otro"
+          ]
+        },
+        "referenceKind": {
+          "type": "string",
+          "maxLength": 32,
+          "description": "Kind of referenced material when clearly identifiable.",
+          "knownValues": [
+            "law",
+            "regulation",
+            "decree",
+            "agreement",
+            "judgment",
+            "case",
+            "program",
+            "notice",
+            "treaty",
+            "procurement",
+            "other"
+          ]
+        },
+        "publicationDateText": {
+          "type": "string",
+          "maxLength": 2048,
+          "maxGraphemes": 512,
+          "description": "Original date text for the referenced item as extracted from the publication."
+        },
+        "resolvedCodNota": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Resolved DOF nota identifier if the reference can be linked to another nota in the corpus. Pipelines should leave this empty when not resolved with confidence; the LLM must never invent it."
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to the referenced item, only when explicitly present in the source text."
+        }
+      }
+    },
+    "timelineEntry": {
+      "type": "object",
+      "description": "A chronological event or milestone described by the publication. DOF variant requires startDateText because many legal dates are expressed non-numerically (e.g., 'al día siguiente al de su publicación') and may not be normalizable.",
+      "required": ["event", "startDateText"],
+      "properties": {
+        "event": {
+          "type": "string",
+          "maxLength": 4096,
+          "maxGraphemes": 1024,
+          "description": "Description of the event or milestone."
+        },
+        "startDate": {
+          "type": "string",
+          "format": "datetime",
+          "description": "Start date/time in ISO 8601 format when normalizable with confidence."
+        },
+        "endDate": {
+          "type": "string",
+          "format": "datetime",
+          "description": "End date/time for ranged events."
+        },
+        "startDateText": {
+          "type": "string",
+          "maxLength": 2048,
+          "maxGraphemes": 512,
+          "description": "Original textual expression of the start date or moment as it appears in the publication."
+        },
+        "endDateText": {
+          "type": "string",
+          "maxLength": 2048,
+          "maxGraphemes": 512,
+          "description": "Original textual expression of the end date when applicable."
+        }
+      }
+    }
+  }
+}

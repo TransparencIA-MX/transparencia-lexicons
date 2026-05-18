@@ -1,0 +1,164 @@
+{
+  "lexicon": 1,
+  "id": "tech.transparencia.document.mxdof.note",
+  "description": "DOF-specific sidecar for a Diario Oficial de la Federación (México) nota. Captures gazette-specific identifiers, edition, section, and authority hierarchy that don't fit the universal tech.transparencia.document.item record. Each nota in the DOF SIDOF feed maps to one record of this lexicon plus one underlying document.item record.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Gazette-specific metadata for a single DOF nota. Strong-references the universal document.item record that carries title, retrieval, publisher, and dates. This sidecar only carries fields that wouldn't make sense outside the DOF context (SIDOF codes, matutina/vespertina edition, dependencia/organismo hierarchy, page/order within the diario PDF).",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["item", "codNota", "codDiario", "edition", "createdAt"],
+        "properties": {
+          "item": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef",
+            "description": "Strong reference to the tech.transparencia.document.item record that holds the universal document metadata (title, retrieval URLs, publisher, dates, jurisdiction)."
+          },
+          "codNota": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Primary DOF nota identifier from SIDOF. UNIQUE across all DOF notas. This is the key external identifier for deduplication and for constructing public DOF URLs."
+          },
+          "codDiario": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "SIDOF identifier for the parent diario (gazette edition). Groups all notas published together in the same daily edition (matutina, vespertina, or extraordinaria)."
+          },
+          "edition": {
+            "type": "string",
+            "maxLength": 32,
+            "description": "Edition label for the parent diario. Lowercased token form (the SIDOF API returns capitalized labels; pipelines should normalize on write).",
+            "knownValues": [
+              "matutina",
+              "vespertina",
+              "extraordinaria"
+            ]
+          },
+          "codSeccion": {
+            "type": "string",
+            "maxLength": 128,
+            "maxGraphemes": 64,
+            "description": "Section code within the diario as published by SIDOF (e.g., 'PRIMERA', 'SEGUNDA', 'UNICA', 'AVISOS JUDICIALES', 'LICITACIONES'). Free-form; conventions vary by edition."
+          },
+          "dependencia": {
+            "type": "string",
+            "maxLength": 512,
+            "maxGraphemes": 128,
+            "description": "Top-level authority label from SIDOF (nombreCodOrgaUno). Examples: 'PODER EJECUTIVO', 'ORGANISMOS AUTONOMOS', 'AVISOS JUDICIALES Y GENERALES', 'PROCURACIONES'. Kept verbatim from source for provenance; the document.item.issuingBodies array carries the structured form."
+          },
+          "organismo": {
+            "type": "string",
+            "maxLength": 512,
+            "maxGraphemes": 128,
+            "description": "More specific issuing body from SIDOF (codOrgaDos). Examples: 'SECRETARIA DE ENERGIA', 'INSTITUTO NACIONAL ELECTORAL', 'SUPREMA CORTE DE JUSTICIA DE LA NACION'."
+          },
+          "issuingAuthority": {
+            "type": "string",
+            "maxLength": 512,
+            "maxGraphemes": 128,
+            "description": "Normalized human-readable issuer name when the pipeline produces one (e.g., 'Secretaría de Salud' instead of raw 'SECRETARIA DE SALUD'). Optional — many notas only expose dependencia-level information."
+          },
+          "authorityLevel": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "Normalized authority tier derived from dependencia/organismo. Useful for analytics without replacing the raw text fields. Open set; pipelines should add new tiers as edge cases appear.",
+            "knownValues": [
+              "federal_executive",
+              "federal_judicial",
+              "federal_legislative",
+              "autonomous_constitutional_body",
+              "state_judicial",
+              "state_executive",
+              "state_legislative",
+              "municipal",
+              "state_owned_enterprise",
+              "decentralized_body",
+              "procurement_section",
+              "judicial_notices_section",
+              "other"
+            ]
+          },
+          "tipoNota": {
+            "type": "string",
+            "maxLength": 128,
+            "maxGraphemes": 64,
+            "description": "Raw tipo_nota from the SIDOF feed when available. Common examples include 'AVISO', but many high-signal normative records arrive with null tipo_nota (the actual document class is then derived by the enrichment layer's tipoActo field)."
+          },
+          "documentClass": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "Broad publication family. Optional at the raw-record level because for many notas it can only be determined from content (and is then mirrored in tech.transparencia.document.mxdof.note.enrichment.documentClass).",
+            "knownValues": [
+              "normative",
+              "judicial",
+              "procurement",
+              "intergovernmental",
+              "planning",
+              "administrative",
+              "informational",
+              "other"
+            ]
+          },
+          "page": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "First printed page number within the parent diario PDF when available."
+          },
+          "pageUntil": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Last printed page number when the nota spans multiple pages."
+          },
+          "order": {
+            "type": "string",
+            "maxLength": 32,
+            "description": "Ordering value from the SIDOF feed used to preserve sequence inside the diario/section. Encoded as a decimal string because AT Protocol does not support floats."
+          },
+          "hasHtml": {
+            "type": "boolean",
+            "description": "Whether SIDOF reports an HTML content page for this nota (existeHtml = 'S')."
+          },
+          "hasPdf": {
+            "type": "boolean",
+            "description": "Whether SIDOF reports PDF availability for the nota or its enclosing diario (existePdf = 'S')."
+          },
+          "hasDoc": {
+            "type": "boolean",
+            "description": "Whether SIDOF reports an attached document artifact beyond HTML/PDF (existeDoc = 'S')."
+          },
+          "hasImage": {
+            "type": "boolean",
+            "description": "Whether SIDOF reports image attachments (existeImagen = 'S')."
+          },
+          "contentTextAvailable": {
+            "type": "boolean",
+            "description": "Whether normalized plain text was successfully captured by the ingestion pipeline (separate from whether the source published HTML/PDF; reflects what we actually extracted)."
+          },
+          "pdfStoragePath": {
+            "type": "string",
+            "maxLength": 1024,
+            "maxGraphemes": 256,
+            "description": "Internal storage path for the diario PDF when retained in object storage (e.g., 'YYYY/MM/DD/diario_{codDiario}.pdf'). Not a public URL — for analytics provenance only."
+          },
+          "rawImportedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "When the raw SIDOF payload was first ingested by the pipeline."
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "When this AT Protocol record was created."
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "When this record was last materially updated."
+          }
+        }
+      }
+    }
+  }
+}
