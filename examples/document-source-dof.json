@@ -1,0 +1,17 @@
+{
+  "$type": "tech.transparencia.document.source",
+  "name": "dof",
+  "displayName": "Diario Oficial de la Federación",
+  "sourceType": "official-gazette",
+  "baseUrl": "https://www.dof.gob.mx/",
+  "country": "MX",
+  "jurisdiction": "federal",
+  "language": "es-MX",
+  "publisherName": "Secretaría de Gobernación",
+  "logoUrl": "https://www.dof.gob.mx/imagenes/escudo_nacional.png",
+  "description": "Órgano del gobierno mexicano cuya función es publicar leyes, decretos, reglamentos, acuerdos, circulares y demás actos expedidos por los poderes de la Federación, a fin de que sean observados y aplicados debidamente.",
+  "license": "public-sector",
+  "identifier": "Q1207824",
+  "identifierType": "wikidata",
+  "createdAt": "2026-05-18T12:00:00.000Z"
+}

@@ -1,0 +1,133 @@
+{
+  "lexicon": 1,
+  "id": "tech.transparencia.document.source",
+  "description": "A document source: an official gazette, government repository, institutional archive, court system, registry, or other publisher of public-interest documents tracked by TransparencIA.",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Registry entry for a document publisher or repository. One record per source, using a fixed slug as the record key. Referenced by tech.transparencia.document.item records via strongRef.",
+      "key": "any",
+      "record": {
+        "type": "object",
+        "required": ["name", "displayName", "sourceType", "createdAt"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 256,
+            "maxGraphemes": 64,
+            "description": "Machine-readable slug (e.g., 'dof', 'unfccc', 'scjn', 'inegi')."
+          },
+          "displayName": {
+            "type": "string",
+            "maxLength": 512,
+            "maxGraphemes": 128,
+            "description": "Human-readable name (e.g., 'Diario Oficial de la Federación', 'United Nations Framework Convention on Climate Change')."
+          },
+          "sourceType": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "Kind of publishing source. Open set; consumers should tolerate unknown values.",
+            "knownValues": [
+              "official-gazette",
+              "government-website",
+              "legislative-portal",
+              "judicial-portal",
+              "regulatory-agency",
+              "environmental-registry",
+              "education-registry",
+              "procurement-portal",
+              "statistics-agency",
+              "international-organization",
+              "academic-repository",
+              "manual-upload",
+              "other"
+            ]
+          },
+          "baseUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "Base URL of the source's public website or repository."
+          },
+          "country": {
+            "type": "string",
+            "maxLength": 2,
+            "description": "ISO 3166-1 alpha-2 country code, when the source is national in scope (e.g., 'MX', 'BR'). Omit for international or multinational sources."
+          },
+          "jurisdiction": {
+            "type": "string",
+            "maxLength": 256,
+            "maxGraphemes": 64,
+            "description": "Legal or administrative scope this source publishes for.",
+            "knownValues": [
+              "local",
+              "municipal",
+              "state",
+              "federal",
+              "national",
+              "regional",
+              "international",
+              "supranational",
+              "unknown"
+            ]
+          },
+          "language": {
+            "type": "string",
+            "format": "language",
+            "description": "Primary language used by this source (BCP-47, e.g., 'es-MX', 'en')."
+          },
+          "publisherName": {
+            "type": "string",
+            "maxLength": 512,
+            "maxGraphemes": 128,
+            "description": "Official publishing body name, if different from displayName (e.g., displayName 'DOF', publisherName 'Secretaría de Gobernación')."
+          },
+          "logoUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to the source's logo or seal."
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 5000,
+            "maxGraphemes": 1000,
+            "description": "Short description of the source, its mandate, and what kind of documents it publishes."
+          },
+          "license": {
+            "type": "string",
+            "maxLength": 512,
+            "maxGraphemes": 128,
+            "description": "Default license, copyright status, or terms of use that apply to documents from this source (e.g., 'public-domain', 'public-sector', 'CC-BY-4.0')."
+          },
+          "identifier": {
+            "type": "string",
+            "maxLength": 256,
+            "description": "Persistent identifier for the source (e.g., Wikidata QID, ROR ID, LEI, or canonical slug)."
+          },
+          "identifierType": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "Identifier system used for identifier.",
+            "knownValues": [
+              "wikidata",
+              "ror",
+              "lei",
+              "isni",
+              "internal",
+              "other"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "When this source was registered in the AT Protocol network."
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "When this record was last materially updated."
+          }
+        }
+      }
+    }
+  }
+}

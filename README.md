@@ -15,6 +15,7 @@ All lexicons use the `tech.transparencia.*` NSID namespace. The authority domain
 ```
 tech.transparencia.defs                  — Shared type definitions
 tech.transparencia.document.item         — Official/institutional document record
+tech.transparencia.document.source       — Document source/publisher registry
 tech.transparencia.news.article          — News article record
 tech.transparencia.news.enrichment       — AI enrichment (sidecar)
 tech.transparencia.news.source           — News source registry
@@ -87,26 +88,49 @@ A canonical document record for official and institutional documents. This is th
 
 The record stores identity, provenance, classification, dates, issuing bodies, and external identifiers. It intentionally does **not** store full text, sections, chunks, AI analysis, or ingestion pipeline state; those belong in future sidecar records or internal pipeline tables.
 
+Publisher/repository metadata (name, base URL, default license) lives on a separate `tech.transparencia.document.source` registry record, referenced via `strongRef`. Per-document retrieval metadata (canonical URLs, MIME type, checksums, access status) lives in the inline `retrieval` object.
+
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | `title` | string | ✅ | Official or source-provided title |
-| `documentType` | string | ✅ | Open document category such as `official-publication`, `official-gazette-entry`, `decree`, `agreement`, `report`, `submission` |
-| `sourceSystem` | string | ✅ | Upstream system or repository such as `dof`, `unfccc`, `government-website`, `manual-upload` |
-| `source` | source object | ✅ | Canonical URL, retrieval time, MIME type, checksums, and source metadata |
-| `publishedAt` | datetime | ✅ | When the source published the document |
+| `documentType` | string | ✅ | Open document category such as `official-publication`, `official-gazette-issue`, `decree`, `agreement`, `report`, `submission` |
+| `source` | strongRef | ✅ | Reference to the `document.source` record for the publisher/repository (e.g., DOF, UNFCCC) |
+| `retrieval` | retrieval | ✅ | Per-document retrieval metadata: URL, canonical URL, PDF URL, MIME type, sha256, file size, access status |
+| `publishedAt` | datetime | ✅ | When the source published the document (use midnight UTC when only a date is known) |
 | `createdAt` | datetime | ✅ | When this AT Protocol record was created |
 | `subtitle` | string | | Secondary title or heading |
 | `description` | string | | Source-provided description or short abstract |
 | `language` | language | | BCP-47 language code (e.g., `es-MX`, `en`, `pt-BR`) |
 | `country` | string | | ISO 3166-1 alpha-2 country code |
 | `jurisdiction` | string | | Legal or administrative scope, such as `federal`, `state`, `international` |
-| `publicationDate` | string | | Source-level date, preferably `YYYY-MM-DD`, when only a date is available |
 | `issuedAt` | datetime | | Signature, approval, adoption, or issuing time |
 | `effectiveAt` | datetime | | Legal or administrative effective time |
-| `issuingBodies` | bodyRef[] | | Agencies, institutions, repositories, courts, or filing parties |
-| `identifiers` | identifier[] | | DOF IDs, UNFCCC symbols, file numbers, case numbers, hashes, etc. |
+| `issuingBodies` | organization[] | | Agencies, institutions, repositories, courts, or filing parties. Uses the shared `defs#organization` type; conventional roles: `publisher`, `issuer`, `author`, `adopter`, `filer`, `regulator`, `court`, `legislature`, `repository` |
+| `identifiers` | identifier[] | | DOF IDs, UNFCCC symbols, file numbers, case numbers, ISBNs, DOIs, etc. (content hashes live in `retrieval.sha256`) |
 | `domains` | string[] | | Broad public-interest domains such as `government`, `environment`, `education`, `climate` |
 | `topics` | string[] | | Free-form source categories or tags |
+| `updatedAt` | datetime | | Last material update time |
+
+### `tech.transparencia.document.source`
+
+Registry of publishers and repositories of official documents (e.g., DOF, UNFCCC, SCJN, INEGI). One record per source, referenced by `document.item` records via `strongRef` — analogous to how `news.article` references `news.source`.
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `name` | string | ✅ | Machine-readable slug (e.g., `dof`, `unfccc`, `scjn`) |
+| `displayName` | string | ✅ | Human-readable name |
+| `sourceType` | string | ✅ | Kind of publishing source: `official-gazette`, `legislative-portal`, `judicial-portal`, `regulatory-agency`, etc. |
+| `createdAt` | datetime | ✅ | When registered |
+| `baseUrl` | uri | | Public website or repository URL |
+| `country` | string | | ISO 3166-1 alpha-2 code (omit for international sources) |
+| `jurisdiction` | string | | Legal or administrative scope |
+| `language` | language | | Primary language (BCP-47) |
+| `publisherName` | string | | Official publishing body, if different from `displayName` |
+| `logoUrl` | uri | | Logo or seal URL |
+| `description` | string | | Mandate and document scope |
+| `license` | string | | Default license/terms for documents from this source |
+| `identifier` | string | | Persistent ID (Wikidata QID, ROR, LEI, etc.) |
+| `identifierType` | string | | Identifier system: `wikidata`, `ror`, `lei`, `isni`, `internal`, `other` |
 | `updatedAt` | datetime | | Last material update time |
 
 ### `tech.transparencia.news.article`
@@ -323,6 +347,8 @@ See the [`examples/`](./examples/) directory for sample records:
 - [`enrichment-finance.json`](./examples/enrichment-finance.json) — Finance enrichment with tickers and org sentiment
 - [`article-sports.json`](./examples/article-sports.json) — Liga MX Clásico Nacional match (Spanish, `language: "es"`)
 - [`enrichment-sports.json`](./examples/enrichment-sports.json) — Sports enrichment with `match-result` event type (Spanish enrichment demonstrating multi-language support)
+- [`document-source-dof.json`](./examples/document-source-dof.json) — DOF registry record (publisher metadata)
+- [`document-dof.json`](./examples/document-dof.json) — DOF decree document referencing the DOF source via `strongRef`, with full `retrieval` block and multiple `issuingBodies`
 
 ## Usage with Hyperindex
 

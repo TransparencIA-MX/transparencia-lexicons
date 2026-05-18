@@ -9,7 +9,7 @@
       "key": "tid",
       "record": {
         "type": "object",
-        "required": ["title", "documentType", "sourceSystem", "source", "publishedAt", "createdAt"],
+        "required": ["title", "documentType", "source", "retrieval", "publishedAt", "createdAt"],
         "properties": {
           "title": {
             "type": "string",
@@ -62,27 +62,15 @@
               "other"
             ]
           },
-          "sourceSystem": {
-            "type": "string",
-            "maxLength": 128,
-            "description": "System, publisher, repository, scraper, or institutional collection where this document was discovered.",
-            "knownValues": [
-              "dof",
-              "unfccc",
-              "government-website",
-              "legislative-portal",
-              "judicial-portal",
-              "environmental-registry",
-              "education-registry",
-              "procurement-portal",
-              "manual-upload",
-              "other"
-            ]
-          },
           "source": {
             "type": "ref",
-            "ref": "#source",
-            "description": "Provenance and retrieval metadata for the canonical source of this document."
+            "ref": "com.atproto.repo.strongRef",
+            "description": "Strong reference to the tech.transparencia.document.source record for the publisher or repository (e.g., DOF, UNFCCC). Identifies which source this document came from."
+          },
+          "retrieval": {
+            "type": "ref",
+            "ref": "#retrieval",
+            "description": "Per-document retrieval metadata: canonical URLs, MIME type, checksums, file size, and access status of the specific retrieved representation."
           },
           "language": {
             "type": "string",
@@ -91,8 +79,8 @@
           },
           "country": {
             "type": "string",
-            "maxLength": 8,
-            "description": "Primary country connected to the document, as an ISO 3166-1 alpha-2 code when applicable (e.g., 'MX', 'BR', 'US')."
+            "maxLength": 2,
+            "description": "Primary country connected to the document, as an ISO 3166-1 alpha-2 code (e.g., 'MX', 'BR', 'US'). Omit for international documents."
           },
           "jurisdiction": {
             "type": "string",
@@ -111,15 +99,10 @@
               "unknown"
             ]
           },
-          "publicationDate": {
-            "type": "string",
-            "maxLength": 32,
-            "description": "Source-level publication date when only a calendar date is available, preferably ISO 8601 YYYY-MM-DD."
-          },
           "publishedAt": {
             "type": "string",
             "format": "datetime",
-            "description": "When the document was published by the source. Use midnight UTC when only a date is available."
+            "description": "When the document was published by the source. Use midnight UTC when only a calendar date is available."
           },
           "issuedAt": {
             "type": "string",
@@ -133,16 +116,16 @@
           },
           "issuingBodies": {
             "type": "array",
-            "description": "Organizations, public bodies, institutions, or authorities responsible for issuing, publishing, filing, or adopting the document.",
+            "description": "Organizations, public bodies, institutions, or authorities responsible for issuing, publishing, filing, or adopting the document. Uses the shared tech.transparencia.defs#organization type. Conventional role values include 'publisher', 'issuer', 'author', 'adopter', 'filer', 'regulator', 'court', 'legislature', 'repository'.",
             "maxLength": 20,
             "items": {
               "type": "ref",
-              "ref": "#bodyRef"
+              "ref": "tech.transparencia.defs#organization"
             }
           },
           "identifiers": {
             "type": "array",
-            "description": "External identifiers such as DOF IDs, UNFCCC symbols, file numbers, docket numbers, ISBNs, or local archival IDs.",
+            "description": "External identifiers such as DOF IDs, UNFCCC symbols, file numbers, docket numbers, ISBNs, or local archival IDs. For content hashes use retrieval.sha256; for URLs use retrieval.url.",
             "maxLength": 50,
             "items": {
               "type": "ref",
@@ -204,9 +187,9 @@
         }
       }
     },
-    "source": {
+    "retrieval": {
       "type": "object",
-      "description": "Canonical source and retrieval metadata for a document.",
+      "description": "Per-document retrieval metadata for a single retrieved representation. Publisher-level metadata (name, base URL, license) lives on the tech.transparencia.document.source record referenced by 'source'.",
       "required": ["url", "retrievedAt"],
       "properties": {
         "url": {
@@ -228,12 +211,6 @@
           "type": "string",
           "format": "uri",
           "description": "PDF or downloadable document URL, if available."
-        },
-        "publisherName": {
-          "type": "string",
-          "maxLength": 512,
-          "maxGraphemes": 128,
-          "description": "Human-readable publisher or repository name."
         },
         "sourceId": {
           "type": "string",
@@ -269,12 +246,12 @@
         "accessType": {
           "type": "string",
           "maxLength": 64,
-          "description": "Access status of the source at retrieval time.",
+          "description": "Access status of the source at retrieval time. Use 'previously-public' for documents that were once publicly accessible but have since been withdrawn or removed by the source.",
           "knownValues": [
             "public",
             "restricted",
             "paywalled",
-            "removed",
+            "previously-public",
             "unknown"
           ]
         },
@@ -282,68 +259,13 @@
           "type": "string",
           "maxLength": 512,
           "maxGraphemes": 128,
-          "description": "License, terms, or public-domain note if known."
-        }
-      }
-    },
-    "bodyRef": {
-      "type": "object",
-      "description": "Institution, agency, authority, publisher, authoring body, or filing party connected to the document.",
-      "required": ["name"],
-      "properties": {
-        "name": {
-          "type": "string",
-          "maxLength": 512,
-          "maxGraphemes": 128,
-          "description": "Human-readable body name."
-        },
-        "role": {
-          "type": "string",
-          "maxLength": 128,
-          "maxGraphemes": 64,
-          "description": "Role this body has in relation to the document.",
-          "knownValues": [
-            "publisher",
-            "issuer",
-            "author",
-            "adopter",
-            "filer",
-            "regulator",
-            "court",
-            "legislature",
-            "repository",
-            "mentioned",
-            "other"
-          ]
-        },
-        "identifier": {
-          "type": "string",
-          "maxLength": 256,
-          "description": "Canonical identifier for this body, if available."
-        },
-        "identifierType": {
-          "type": "string",
-          "maxLength": 64,
-          "description": "Identifier system used for identifier.",
-          "knownValues": [
-            "wikidata",
-            "lei",
-            "ror",
-            "isni",
-            "internal",
-            "other"
-          ]
-        },
-        "url": {
-          "type": "string",
-          "format": "uri",
-          "description": "Official or canonical URL for this body."
+          "description": "Per-document license override, if the document is licensed differently from the source-level default."
         }
       }
     },
     "identifier": {
       "type": "object",
-      "description": "External identifier assigned to a document by a source system, authority, archive, or standard.",
+      "description": "External identifier assigned to a document by a source system, authority, archive, or standard. For content hashes use retrieval.sha256; for URLs use retrieval.url.",
       "required": ["type", "value"],
       "properties": {
         "type": {
@@ -361,8 +283,6 @@
             "isbn",
             "issn",
             "doi",
-            "url",
-            "sha256",
             "other"
           ]
         },
