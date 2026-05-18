@@ -243,6 +243,17 @@
           "format": "datetime",
           "description": "When the source was retrieved by the pipeline."
         },
+        "blob": {
+          "type": "blob",
+          "accept": [
+            "application/pdf",
+            "text/html",
+            "text/plain",
+            "application/json"
+          ],
+          "maxSize": 10000000,
+          "description": "Optional binary attachment preserving the actual document bytes on this PDS. Typical contents: the source PDF, an HTML snapshot, the extracted plain text used by the enrichment pipeline, or the original upstream JSON payload (e.g., a SIDOF response). The other retrieval fields (url, pdfUrl, sha256) still reference the original public source — this blob is the archived copy. Max 10 MB."
+        },
         "accessType": {
           "type": "string",
           "maxLength": 64,
