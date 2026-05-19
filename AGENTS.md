@@ -50,6 +50,17 @@ This repository holds the AT Protocol Lexicon JSON files under `lexicons/tech/tr
 
 When extending the lexicons, prefer optional fields with strict `maxLength` over required additions — they keep older records valid without backfill.
 
+## For any AI coding agent (Claude, Gemini, Cursor, Aider, …)
+
+This file is **model-agnostic** — same rules apply regardless of which agent edits the repo.
+
+- **Conversation language: Spanish** (maintainer is in Mexico). Commits are in English using conventional commits (`feat:`, `fix:`, `docs:`).
+- This repo is the **single source of truth** for `tech.transparencia.*` ATProto Lexicon schemas. Downstream repos (`news_fetcher`, `transparencia-indexer`) consume these via submodule / generated code; any schema change cascades.
+- **Schema changes are breaking by default.** Use `goat lex breaking` (when available) before any PR. Mark new fields as optional; new required fields demand a migration plan for existing records.
+- The maintainer's GitHub account (`JoKradept`) has read-only access here — open PRs from `JoKradept/transparencia-lexicons` fork. The project lead (Diego) merges.
+- After merging a schema change, downstream repos need to **bump their `lexicons` submodule pointer** to pick it up. Don't assume the bump is automatic.
+- Sister repos: `TransparencIA-MX/news_fetcher` (ingester that produces records) and `TransparencIA-MX/transparencia-indexer` (Tap + GraphQL that consumes them).
+
 <!-- BEGIN BEADS INTEGRATION v:1 profile:minimal hash:ca08a54f -->
 ## Beads Issue Tracker
 
