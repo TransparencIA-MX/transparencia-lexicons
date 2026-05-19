@@ -90,7 +90,7 @@ A canonical document record for official and institutional documents. This is th
 
 The record stores identity, provenance, classification, dates, issuing bodies, and external identifiers. It intentionally does **not** store full text, sections, chunks, AI analysis, or ingestion pipeline state; those belong in future sidecar records or internal pipeline tables.
 
-Publisher/repository metadata (name, base URL, default license) lives on a separate `tech.transparencia.document.source` registry record, referenced via `strongRef`. Per-document retrieval metadata (canonical URLs, MIME type, checksums, access status) lives in the inline `retrieval` object — which also accepts an optional `blob` (PDF / HTML / plain text / JSON, up to 10 MB) so the document bytes can be preserved on the PDS alongside the metadata.
+Publisher/repository metadata (name, base URL, default license) lives on a separate `tech.transparencia.document.source` registry record, referenced via `strongRef`. Per-document retrieval metadata (canonical URLs, MIME type, checksums, access status) lives in the inline `retrieval` object — which also accepts an optional `blob` (PDF / HTML / plain text / JSON, up to 50 MB) so the document bytes can be preserved on the PDS alongside the metadata.
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
