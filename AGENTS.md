@@ -36,6 +36,20 @@ cp -rf source dest          # NOT: cp -r source dest
 - `apt-get` - use `-y` flag
 - `brew` - use `HOMEBREW_NO_AUTO_UPDATE=1` env var
 
+## Lexicon Schemas
+
+This repository holds the AT Protocol Lexicon JSON files under `lexicons/tech/transparencia/`. See `README.md` for the full field tables.
+
+**Important schema notes for agents editing news/article records:**
+
+- `description` is a **short summary only** (RSS `<description>`, Atom `<summary>`). It must NOT contain the article body; the body lives in `content`. News fetchers / mappers that previously fell back to `<content:encoded>` for `description` must stop doing so.
+- `content` (new in v2) carries the full HTML body when the feed exposes one (`<content:encoded>`, Atom `<content>`, JSON Feed `content_html`/`content_text`).
+- `tags[]` (new in v2) holds every category the feed exposed (RSS `<category>`+, `dc:subject`, Atom `<category>`+, `news:keywords`).
+- `feedCategory` is **DEPRECATED**. It now equals `tags[0]` and is kept only for back-compat with v1 consumers; it will be removed in a future revision.
+- `updatedAt`, `originalSource` (`{name?, url?}`), and `mediaCaption` are optional v2 fields that should be populated whenever the feed exposes them, but absent (not `null`) when it does not.
+
+When extending the lexicons, prefer optional fields with strict `maxLength` over required additions — they keep older records valid without backfill.
+
 <!-- BEGIN BEADS INTEGRATION v:1 profile:minimal hash:ca08a54f -->
 ## Beads Issue Tracker
 
