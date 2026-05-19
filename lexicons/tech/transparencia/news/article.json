@@ -35,20 +35,42 @@
           },
           "description": {
             "type": "string",
-            "maxLength": 10000,
-            "maxGraphemes": 2000,
-            "description": "Article summary or lead paragraph, typically from the RSS feed description field."
+            "maxLength": 5000,
+            "maxGraphemes": 1500,
+            "description": "Short lead / summary only. Maps to RSS <description>, Atom <summary>, JSON Feed `summary`. No fallback to the full body — that lives in `content`."
+          },
+          "content": {
+            "type": "string",
+            "maxLength": 50000,
+            "maxGraphemes": 15000,
+            "description": "Full article body when the feed provides it (RSS <content:encoded>, Atom <content>, JSON Feed `content_html` / `content_text`). Powers Postgres FTS."
           },
           "imageUrl": {
             "type": "string",
             "format": "uri",
             "description": "URL of the article's featured image."
           },
+          "mediaCaption": {
+            "type": "string",
+            "maxLength": 500,
+            "maxGraphemes": 200,
+            "description": "Caption for imageUrl when the feed provides one (Google News <image:caption>, RSS Media <media:description>)."
+          },
+          "tags": {
+            "type": "array",
+            "maxLength": 50,
+            "items": {
+              "type": "string",
+              "maxLength": 200,
+              "maxGraphemes": 64
+            },
+            "description": "All categories the source attached to the article (RSS <category>, <dc:subject>, Atom <category term>, Google News <news:keywords>, JSON Feed `tags`)."
+          },
           "feedCategory": {
             "type": "string",
             "maxLength": 256,
             "maxGraphemes": 64,
-            "description": "Category from the RSS feed (e.g., 'politica', 'deportes', 'economia')."
+            "description": "DEPRECATED — equivalent to tags[0]. Kept for backward compatibility with consumers that read it; new consumers should read `tags`. Will be removed in a future revision."
           },
           "guid": {
             "type": "string",
@@ -58,7 +80,12 @@
           "publishedAt": {
             "type": "string",
             "format": "datetime",
-            "description": "When the article was published by the source."
+            "description": "When the article was first published by the source."
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "datetime",
+            "description": "When the source last edited the article (RSS <dcterms:modified>, Atom <updated> when distinct from publish time, JSON Feed `date_modified`)."
           },
           "createdAt": {
             "type": "string",
@@ -69,6 +96,21 @@
             "type": "string",
             "format": "language",
             "description": "Language of the article content (BCP-47, e.g., 'es', 'en', 'pt-BR')."
+          },
+          "originalSource": {
+            "type": "object",
+            "description": "Set when the feed declares the article was syndicated from another outlet (RSS <source url>, <dc:source>). Distinguishes legitimate republication (e.g., OEM regional papers carrying a Sol de México story) from accidental duplicates.",
+            "properties": {
+              "name": {
+                "type": "string",
+                "maxLength": 256,
+                "maxGraphemes": 100
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              }
+            }
           }
         }
       }
