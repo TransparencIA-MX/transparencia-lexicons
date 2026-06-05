@@ -214,11 +214,16 @@ A news article as published by a media outlet. Contains only the raw content —
 | `url` | uri | ✅ | Canonical article URL |
 | `source` | strongRef | ✅ | Reference to the source record |
 | `author` | string | | Byline |
-| `description` | string | | Lead paragraph / RSS description |
+| `description` | string | | Short summary — RSS `<description>`, Atom `<summary>`. Plain-text-leaning; the full body lives in `content`, never here. |
+| `content` | string | | Full article body when the feed provides one (RSS `<content:encoded>`, Atom `<content>`, JSON Feed `content_html`/`content_text`). |
 | `imageUrl` | uri | | Featured image URL |
-| `feedCategory` | string | | RSS feed category |
+| `mediaCaption` | string | | Caption for the featured image (`media:description`, `news:image:caption`). |
+| `tags` | array | | All categories the feed provided (RSS `<category>`+, `dc:subject`, Atom `<category>`+, `news:keywords`). |
+| `feedCategory` | string | | **DEPRECATED** — equals `tags[0]`. Kept for back-compat; will be removed in a future revision. |
 | `guid` | string | | RSS GUID for deduplication |
 | `publishedAt` | datetime | ✅ | When the source published it |
+| `updatedAt` | datetime | | Edit timestamp distinct from `publishedAt` (Atom `<updated>`, `dcterms:modified`). |
+| `originalSource` | object | | When syndicated from another outlet: `{name?, url?}`. |
 | `createdAt` | datetime | ✅ | When this AT Protocol record was created |
 | `language` | string | | BCP-47 language code (e.g., `es`, `en`, `pt-BR`) |
 
