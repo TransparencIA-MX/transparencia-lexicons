@@ -16,10 +16,5 @@ dist/
 .env
 .env.local
 
-# Beads / Dolt files (added by bd init)
-.dolt/
-*.db
-.beads-credential-key
-
 # Pulled AT Protocol lexicon dependencies (via goat lex pull)
 lexicons/com/
