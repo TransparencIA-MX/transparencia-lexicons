@@ -219,7 +219,6 @@ A news article as published by a media outlet. Contains only the raw content —
 | `imageUrl` | uri | | Featured image URL |
 | `mediaCaption` | string | | Caption for the featured image (`media:description`, `news:image:caption`). |
 | `tags` | array | | All categories the feed provided (RSS `<category>`+, `dc:subject`, Atom `<category>`+, `news:keywords`). |
-| `feedCategory` | string | | **DEPRECATED** — equals `tags[0]`. Kept for back-compat; will be removed in a future revision. |
 | `guid` | string | | RSS GUID for deduplication |
 | `publishedAt` | datetime | ✅ | When the source published it |
 | `updatedAt` | datetime | | Edit timestamp distinct from `publishedAt` (Atom `<updated>`, `dcterms:modified`). |

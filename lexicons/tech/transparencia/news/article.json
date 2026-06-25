@@ -66,12 +66,6 @@
             },
             "description": "All categories the source attached to the article (RSS <category>, <dc:subject>, Atom <category term>, Google News <news:keywords>, JSON Feed `tags`)."
           },
-          "feedCategory": {
-            "type": "string",
-            "maxLength": 256,
-            "maxGraphemes": 64,
-            "description": "DEPRECATED — equivalent to tags[0]. Kept for backward compatibility with consumers that read it; new consumers should read `tags`. Will be removed in a future revision."
-          },
           "guid": {
             "type": "string",
             "maxLength": 1024,

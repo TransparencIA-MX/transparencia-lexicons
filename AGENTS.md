@@ -34,8 +34,7 @@ This repository holds the AT Protocol Lexicon JSON files under `lexicons/tech/tr
 
 - `description` is a **short summary only** (RSS `<description>`, Atom `<summary>`). It must NOT contain the article body; the body lives in `content`. News fetchers / mappers that previously fell back to `<content:encoded>` for `description` must stop doing so.
 - `content` (new in v2) carries the full HTML body when the feed exposes one (`<content:encoded>`, Atom `<content>`, JSON Feed `content_html`/`content_text`).
-- `tags[]` (new in v2) holds every category the feed exposed (RSS `<category>`+, `dc:subject`, Atom `<category>`+, `news:keywords`).
-- `feedCategory` is **DEPRECATED**. It now equals `tags[0]` and is kept only for back-compat with v1 consumers; it will be removed in a future revision.
+- `tags[]` (new in v2) holds every category the feed exposed (RSS `<category>`+, `dc:subject`, Atom `<category>`+, `news:keywords`). Replaces the v1 singular `feedCategory`, which was removed.
 - `updatedAt`, `originalSource` (`{name?, url?}`), and `mediaCaption` are optional v2 fields that should be populated whenever the feed exposes them, but absent (not `null`) when it does not.
 
 When extending the lexicons, prefer optional fields with strict `maxLength` over required additions — they keep older records valid without backfill.
