@@ -260,7 +260,7 @@
             "maxLength": 30,
             "items": {
               "type": "ref",
-              "ref": "#timelineEntry"
+              "ref": "tech.transparencia.defs#timelineEntry"
             }
           },
           "contentDomain": {
@@ -510,41 +510,6 @@
           "type": "string",
           "format": "uri",
           "description": "URL to the referenced item, only when explicitly present in the source text."
-        }
-      }
-    },
-    "timelineEntry": {
-      "type": "object",
-      "description": "A chronological event or milestone described by the publication. DOF variant requires startDateText because many legal dates are expressed non-numerically (e.g., 'al día siguiente al de su publicación') and may not be normalizable.",
-      "required": ["event", "startDateText"],
-      "properties": {
-        "event": {
-          "type": "string",
-          "maxLength": 4096,
-          "maxGraphemes": 1024,
-          "description": "Description of the event or milestone."
-        },
-        "startDate": {
-          "type": "string",
-          "format": "datetime",
-          "description": "Start date/time in ISO 8601 format when normalizable with confidence."
-        },
-        "endDate": {
-          "type": "string",
-          "format": "datetime",
-          "description": "End date/time for ranged events."
-        },
-        "startDateText": {
-          "type": "string",
-          "maxLength": 2048,
-          "maxGraphemes": 512,
-          "description": "Original textual expression of the start date or moment as it appears in the publication."
-        },
-        "endDateText": {
-          "type": "string",
-          "maxLength": 2048,
-          "maxGraphemes": 512,
-          "description": "Original textual expression of the end date when applicable."
         }
       }
     }

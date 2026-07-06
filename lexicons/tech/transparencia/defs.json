@@ -152,9 +152,15 @@
     },
     "timelineEntry": {
       "type": "object",
-      "description": "A chronological event mentioned in content.",
-      "required": ["event", "startDate"],
+      "description": "A chronological event mentioned in content. Producers should populate at least one of startDate (ISO 8601, when normalizable with confidence) or startDateText (original textual expression, e.g. 'al día siguiente al de su publicación'). Legal/administrative sources frequently only allow startDateText; news sources typically produce startDate.",
+      "required": ["event"],
       "properties": {
+        "event": {
+          "type": "string",
+          "maxLength": 4096,
+          "maxGraphemes": 1024,
+          "description": "Description of what happened."
+        },
         "startDate": {
           "type": "string",
           "format": "datetime",
@@ -165,11 +171,17 @@
           "format": "datetime",
           "description": "End date/time in ISO 8601 format. Only for date ranges (e.g., a presidential term). Omit for point-in-time events."
         },
-        "event": {
+        "startDateText": {
           "type": "string",
-          "maxLength": 1024,
-          "maxGraphemes": 256,
-          "description": "Description of what happened."
+          "maxLength": 2048,
+          "maxGraphemes": 512,
+          "description": "Original textual expression of the start date or moment when normalization is unavailable or lossy (e.g., 'al día siguiente al de su publicación en el Diario Oficial de la Federación')."
+        },
+        "endDateText": {
+          "type": "string",
+          "maxLength": 2048,
+          "maxGraphemes": 512,
+          "description": "Original textual expression of the end date when applicable."
         }
       }
     },
