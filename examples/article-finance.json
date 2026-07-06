@@ -9,7 +9,7 @@
   "author": "Jane Smith",
   "description": "Tesla reported Q1 2026 revenue of $28.4 billion, beating analyst estimates of $26.1 billion, driven by strong demand in China and Southeast Asia.",
   "imageUrl": "https://www.reuters.com/resizer/v2/example-tesla.jpg",
-  "feedCategory": "business",
+  "tags": ["business"],
   "publishedAt": "2026-03-27T14:00:00.000Z",
   "createdAt": "2026-03-27T14:05:00.000Z",
   "language": "en"
