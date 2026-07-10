@@ -5,8 +5,8 @@
   "defs": {
     "location": {
       "type": "object",
-      "description": "A geographic location referenced in content. Coordinates use WGS 84 (EPSG:4326).",
-      "required": ["name", "lat", "lng"],
+      "description": "A geographic location referenced in content. Coordinates use WGS 84 (EPSG:4326). Only `name` is required — country-level references (e.g. \"México\") legitimately have no lat/lng, and forcing them to be required breaks GraphQL non-null validation on legitimate data.",
+      "required": ["name"],
       "properties": {
         "name": {
           "type": "string",
