@@ -9,7 +9,7 @@
       "key": "tid",
       "record": {
         "type": "object",
-        "required": ["title", "url", "source", "publishedAt", "createdAt"],
+        "required": ["title", "url", "publishedAt", "createdAt"],
         "properties": {
           "title": {
             "type": "string",
@@ -25,7 +25,7 @@
           "source": {
             "type": "ref",
             "ref": "com.atproto.repo.strongRef",
-            "description": "Strong reference to the tech.transparencia.news.source record for this outlet."
+            "description": "Strong reference to the tech.transparencia.news.source record for this outlet. Optional: legacy records pre-source-schema exist without it, and GraphQL non-null validation blocks their return when marked required. New ingesters should always set it."
           },
           "author": {
             "type": "string",
